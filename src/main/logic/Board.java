@@ -1,5 +1,10 @@
 package logic;
 
+/**
+ * @author Hypolite
+ * @version 1.0
+ */
+
 public class Board {
     /**
      * Class representing the board object and it's function.
