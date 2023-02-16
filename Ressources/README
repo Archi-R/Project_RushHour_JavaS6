@@ -1,0 +1,11 @@
+vehicules.dat décrit les véhicules possibles sous la forme NScolor:
+- N: nom du véhicule
+- S: taille du véhicule
+- color: couleur du véhicule
+
+1-beginner.cfg, 2-intermediate.cfg, ... décrit les combinaisons
+possibles pour chaque niveau avec les positions des véhicules sous la
+forme NDxy:
+- N: nom du véhicule
+- D: direction du véhicule (H pour horizontale ou V pour verticale)
+- x, y: position du véhicule

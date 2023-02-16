@@ -1,0 +1,217 @@
+model Project
+
+enum Name {X,D,H,A,E,I,B,F,J,C,G,K,O,P,Q,R}
+enum Move {Up,Right,Left,Down}
+enum Direction {Vertical,Horizontal}
+enum Difficulty {Beginner,Intermediate,Expert}
+
+class RushHour.src.Vehicle
+	attributes
+		Origine : Case
+		Orientation : Direction
+		Color : Name
+		Lenght : Integer
+	operations
+		getOrigine() : Case
+		begin
+			result := self.Origine
+		end
+		setOrigine(o:Case)
+		begin
+			self.Origine := o
+		end
+
+		getOrientation() : Direction
+		begin
+			result := self.Orientation
+		end
+		setOrientation(d:Direction) 
+		begin 
+			self.Orientation := d
+		end 
+
+		getColor() : Name
+		begin
+			result := self.Color
+		end
+		setColor(c:Name) 
+		begin 
+			self.Color := c
+		end 
+
+		getLenght() : Integer
+		begin
+			result := self.Lenght
+		end
+		setLength()
+		begin 
+			if Set{Name::O,Name::P,Name::Q,Name::R}->includes(self.Color) then self.Lenght := 3
+			else self.Lenght := 2
+			end
+		end 
+
+		RushHour.src.Vehicle(o:Case,d:Direction,n:Name)
+		begin
+			-- Construct the vehicle
+			self.setOrigine(o);
+			self.setOrientation(d);
+			self.setColor(n);
+			self.setLength()
+		end
+
+		move(c:Case)
+		begin
+			self.Origine:=c
+		end 
+
+	constraints
+		inv TruckLenght :
+			if Set{Name::O,Name::P,Name::Q,Name::R}->includes(self.Color) then Lenght = 3
+			else Lenght = 2
+			endif
+end
+
+class RushHour.src.Board
+	attributes
+		BoardSize : Integer
+		Difficult : Difficulty
+		config : RushHour.src.Config
+	operations 
+		
+		setBoardSize(i:Integer)
+		begin
+			self.BoardSize:=i
+		end
+
+		getBoardsize() : Integer
+		begin
+			result := self.BoardSize
+		end
+
+		setDifficult(dif : Difficulty)
+		begin  
+			self.Difficult := dif
+		end
+
+		getDifficult() : Difficulty
+		begin 
+			result := self.Difficult
+		end 
+
+		setConfig(c:RushHour.src.Config)
+		begin
+			self.config := c 
+		end
+
+		RushHour.src.Board(i:Integer,dif:Difficulty,c:RushHour.src.Config)
+		begin
+			-- Construct the board
+			self.setBoardSize(i);
+			self.setDifficult(dif);
+			self.setConfig(c);
+		end
+end
+
+class Case
+	attributes
+		X : Integer
+		Y : Integer
+		isOccupied : Boolean
+		V : RushHour.src.Vehicle
+	operations
+		getVehicle() : RushHour.src.Vehicle
+		begin
+			result:= self.V
+		end
+		setVehicle(v:RushHour.src.Vehicle)
+		begin
+			self.V := v
+		end
+		getX() : Integer
+		begin
+			result := self.X
+		end
+		setX(x:Integer)
+		begin
+			self.X:= x
+		end
+		getY() : Integer
+		begin
+			result := self.Y
+		end
+		setY(y:Integer)
+		begin
+			self.Y:= y
+		end
+		getIsOccupied() : Boolean
+		begin
+			result := self.isOccupied
+		end
+		setIsOccupied(b:Boolean)
+		begin
+			self.isOccupied := b
+		end
+		Case(x:Integer,y:Integer)				
+		begin
+			-- Construct the case
+			self.X:=x; 
+			self.Y:=y;
+			self.isOccupied:=false; 
+			self.V:=null;
+		end
+end
+class RushHour.src.Config
+	attributes
+		level : Integer
+		config : Set(String)
+
+	operations
+		parserConfig(conf:Set(String))
+		begin
+			--Parse le ficheier de configuration, ne peut pas se definir en use
+		end
+
+		setLevel(l:Integer) 
+		begin
+			self.level := l
+		end 
+
+		getLevel() : Integer
+		begin 
+			result := self.level
+		end 
+
+		getConfig() : Set(String)
+		begin
+			result := self.config
+		end 
+
+	 	setConfig() 
+		begin 
+			-- choose the right config, depending on the difficulty and the level
+		end 
+
+		RushHour.src.Config(l:Integer,conf:Set(String))
+		begin 
+			self.level := l; 
+			self.config := conf;
+		end 
+
+
+		
+end
+
+aggregation Contient between 
+RushHour.src.Board[1] role contient
+Case[*] role estContenu
+end 
+
+association EstDans between
+Case[1] role contient
+RushHour.src.Vehicle[0..1] role estDans
+end
+
+association EstConfigure between
+RushHour.src.Board[1] role estConfigure
+RushHour.src.Config[1] role Configure
+end
