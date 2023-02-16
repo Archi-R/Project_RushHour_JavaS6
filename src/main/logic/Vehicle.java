@@ -8,9 +8,7 @@ import java.awt.*;
  * @author Ronan PEYREL
  */
 public class Vehicle {
-    /**
-     * Class that represent a vehicle.
-     */
+
     private NameColor nameColor;
     private int length;
     private Cell origin;

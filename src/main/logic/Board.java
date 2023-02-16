@@ -1,14 +1,12 @@
 package logic;
 
 /**
+ * Class representing the board object and it's function.
  * @author Hypolite
  * @version 1.0
  */
 
 public class Board {
-    /**
-     * Class representing the board object and it's function.
-     */
 
     /**
      * The board size, initialized to 6.

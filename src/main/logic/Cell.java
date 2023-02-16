@@ -1,14 +1,12 @@
 package logic;
 
 /**
+ * Class that represent the object cell.
  * @author Hypolite
  * @version 1.0
  */
 
 public class Cell {
-    /**
-     * Class that represent the object cell.
-     */
 
     /**
      * Represent the position of the case on the x axis
