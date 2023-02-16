@@ -5,42 +5,90 @@ package logic;
  * @author Ronan PEYREL
  */
 public class Vehicle {
-
+    /**
+     * The name of the vehicle.
+     * Can also give its color.
+     */
     private NameColor nameColor;
-    private int length;
+
+    /**
+     * The origin cell of the vehicle.
+     */
     private Cell origin;
+    /**
+     * The direction of the vehicle.
+     * Horizontal = points towards the left
+     * Vertical = points towards the bottom
+     */
     private final Direction direction;
 
 
+    /**
+     * Constructor of the class Vehicle.
+     * @param nameColor The name of the vehicle.
+     * @param origin The origin cell of the vehicle.
+     * @param direction The direction of the vehicle.
+     */
     public Vehicle(NameColor nameColor, Cell origin, Direction direction) {
         this.nameColor = nameColor;
-        this.length = NameColor.getLenght(nameColor);
         this.origin = origin;
         this.direction = direction;
     }
 
+    /**
+     * Getter of the nameColor attribute.
+     * @return
+     */
     public NameColor getNameColor() {
         return nameColor;
     }
 
+    /**
+     * Getter of the length attribute.
+     * @return The length of the vehicle.
+     */
     public int getLength() {
-        return length;
+        return NameColor.getLenght(nameColor);
     }
 
+    /**
+     * Getter of the origin attribute.
+     * @return The origin cell of the vehicle.
+     */
     public Cell getOrigin() {
         return origin;
     }
 
+    /**
+     * Getter of the direction attribute.
+     * @return The direction of the vehicle.
+     */
     public Direction getDirection() {
         return direction;
     }
 
+    /**
+     * Setter of the origin attribute.
+     * @param origin The new origin cell of the vehicle.
+     */
     public void setOrigin(Cell origin) {
         this.origin = origin;
     }
 
+    /**
+     * Getter of the color attribute.
+     * @return The color of the vehicle.
+     */
     public String getColor() {
         return NameColor.getColor(nameColor);
+    }
+
+    /**
+     * Method that return the string representation of the vehicle.
+     * @return The string representation of the vehicle.
+     */
+    public String toString() {
+        return nameColor +""+direction.toString().charAt(1) + origin.toString();
     }
 
 
