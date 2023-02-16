@@ -45,7 +45,7 @@ public enum NameColor {
         colornameMap.put(R, "green");
     }
 
-    public static String getColorName(NameColor color) {
+    public static String getColor(NameColor color) {
         return colornameMap.get(color);
     }
 

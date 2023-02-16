@@ -1,8 +1,5 @@
 package logic;
 
-import javax.lang.model.util.Elements;
-import java.awt.*;
-
 /**
  * Class that represent a vehicle.
  * @author Ronan PEYREL
@@ -42,8 +39,8 @@ public class Vehicle {
         this.origin = origin;
     }
 
-    public Color getColor() {
-        return Color.getColor(NameColor.getColorName(nameColor));
+    public String getColor() {
+        return NameColor.getColor(nameColor);
     }
 
 
