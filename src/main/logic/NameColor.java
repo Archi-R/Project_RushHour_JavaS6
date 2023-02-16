@@ -7,9 +7,15 @@ import java.util.HashMap;
  * Class that represent the unique name a vehicle can have.
  * It is also representing its unique color
  * It is also representing its type (Car or Truck)
+ *
+ * @author Ronan PEYREL
  */
 public enum NameColor {
-    X, A, B, C, D, E, F, G, H, I, J, K, O, P, Q, R;
+    //Cars (12)
+    X, A, B, C, D, E, F, G, H, I, J, K,
+
+    //Trucks (4)
+    O, P, Q, R;
     private String color;
     /*X red A light_green B orange C blue
     Voitures D pink E dark_purple F green G dark_grey
@@ -32,6 +38,7 @@ public enum NameColor {
         colornameMap.put(I, "light_yellow");
         colornameMap.put(J, "dark_brown");
         colornameMap.put(K, "dark_green");
+
         colornameMap.put(O, "yellow");
         colornameMap.put(P, "purple");
         colornameMap.put(Q, "dark_blue");
@@ -40,6 +47,10 @@ public enum NameColor {
 
     public static String getColorName(NameColor color) {
         return colornameMap.get(color);
+    }
+
+    public static int getLenght(NameColor color) {
+        return color.ordinal() < 12 ? 2 : 3;
     }
 
 
