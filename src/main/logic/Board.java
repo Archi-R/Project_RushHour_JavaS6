@@ -11,9 +11,9 @@ public class Board {
     public enum Difficulty {beginner, intermediate, advanced, expert, grandmaster};
 
     /**
-     * The board size.
+     * The board size, initialized to 6.
      */
-    final int boardsize = 6;
+    final int boardSize = 6;
 
     /**
      * Define the difficulty of the current board
@@ -25,4 +25,47 @@ public class Board {
      */
     Config configuration;
 
+
+    /////////////////// methods
+
+    /**
+     * Create a board with the given difficulty and configuration
+     * @param difficulty : the wanted difficulty
+     * @param configuration : the wanted configuration
+     */
+    Board(Difficulty difficulty, Config configuration){
+        this.difficulty = difficulty;
+        this.configuration = configuration;
+    }
+
+
+
+    /**
+     * Method which return the value of the size of the board
+     * @return int : boardSize
+     * @inv : boardSize = 6
+     */
+    public int getBoardSize(){
+        return boardSize;
+    }
+
+
+    /**
+     * Method which set the difficulty of the current board
+     * @return null
+     * @param d : Difficulty , the wanted difficulty
+     */
+    public void setDifficulty(Difficulty d){
+        difficulty = d;
+    }
+
+
+    /**
+     * Method which set the board configuration
+     * @param c : Config , the wanted configuration
+     * @return null
+     */
+    public void setConfiguration(Config c){
+        configuration = c;
+    }
 }
