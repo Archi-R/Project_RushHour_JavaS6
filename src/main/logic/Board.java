@@ -11,11 +11,6 @@ public class Board {
      */
 
     /**
-     * difficulties enumeration
-     */
-    public enum Difficulty {beginner, intermediate, advanced, expert, grandmaster};
-
-    /**
      * The board size, initialized to 6.
      */
     private final int boardSize = 6;
