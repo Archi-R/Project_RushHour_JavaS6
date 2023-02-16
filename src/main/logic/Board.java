@@ -13,17 +13,17 @@ public class Board {
     /**
      * The board size, initialized to 6.
      */
-    final int boardSize = 6;
+    private final int boardSize = 6;
 
     /**
      * Define the difficulty of the current board
      */
-    Difficulty difficulty;
+    private Difficulty difficulty;
 
     /**
      * Define the configuration of the current board
      */
-    Config configuration;
+    private Config configuration;
 
 
     /////////////////// methods
