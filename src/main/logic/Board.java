@@ -1,5 +1,8 @@
 package logic;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Class representing the board object and it's function.
  * @author Hypolite
@@ -23,6 +26,10 @@ public class Board {
      */
     private Config configuration;
 
+    /**
+     * The board of the game
+     */
+    private HashMap<int[], Cell> cells = new HashMap<int[], Cell>();
 
     /////////////////// methods
 
@@ -34,6 +41,15 @@ public class Board {
     Board(Difficulty difficulty, Config configuration){
         this.difficulty = difficulty;
         this.configuration = configuration;
+
+        // Create the cells
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                Cell c = new Cell(this, i, j, false, null);
+                int[] pos = {i, j};
+                cells.put(pos, c);
+            }
+        }
     }
 
 
@@ -44,7 +60,7 @@ public class Board {
      * @inv : boardSize = 6
      */
     public int getBoardSize(){
-        return boardSize;
+        return this.boardSize;
     }
 
 
@@ -54,7 +70,7 @@ public class Board {
      * @param d : Difficulty , the wanted difficulty
      */
     public void setDifficulty(Difficulty d){
-        difficulty = d;
+        this.difficulty = d;
     }
 
 
@@ -64,6 +80,11 @@ public class Board {
      * @return null
      */
     public void setConfiguration(Config c){
-        configuration = c;
+        this.configuration = c;
+    }
+
+    public Cell getCell(int x, int y) {
+    	int[] pos = {x, y};
+    	return cells.get(pos);
     }
 }

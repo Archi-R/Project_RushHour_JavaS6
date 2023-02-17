@@ -30,6 +30,11 @@ public class Cell {
      */
     private Vehicle vehicle;
 
+    /**
+     * The board that contains the current cell
+     */
+    private Board board;
+
     ///////////// methods
 
     /**
@@ -39,7 +44,8 @@ public class Cell {
      * @param isOccupied : if the cell is occupied or not
      * @param vehicle : the vehicle which is on the cell
      */
-    Cell(int X, int Y, boolean isOccupied, Vehicle vehicle){
+    Cell(Board b, int X, int Y, boolean isOccupied, Vehicle vehicle){
+        this.board = b;
         this.X = X;
         this.Y = Y;
         this.isOccupied = isOccupied;
@@ -120,4 +126,9 @@ public class Cell {
     }
 
 
+    /**
+     * return the board that contains the current cell
+     * @return
+     */
+    public Board getBoard() {return this.board;}
 }

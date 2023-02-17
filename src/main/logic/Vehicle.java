@@ -91,6 +91,21 @@ public class Vehicle {
         return nameColor +""+direction.toString().charAt(1) + origin.toString();
     }
 
+    /**
+     * Methods that set as occupied the cells the Vehicle is on.
+     */
+    private void setOccupiedCells() {
+        if (direction == Direction.Horizontal) {
+            for (int i = 0; i < this.getLength(); i++) {
+                origin.getBoard().getCell(origin.getX() + i, origin.getY()).setOccupied(true);
+            }
+        } else {
+            for (int i = 0; i < this.getLength(); i++) {
+                origin.getBoard().getCell(origin.getX(), origin.getY() + i).setOccupied(true);
+            }
+        }
+    }
+
 
 
 }
