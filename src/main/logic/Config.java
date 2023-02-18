@@ -28,6 +28,11 @@ public class Config {
     //    // parse
     //}
 
+
+    /**
+     * Set the level number picked from the configuration file
+     * @param l
+     */
     public void setLevel(int l){ this.level =l; }
 
 
