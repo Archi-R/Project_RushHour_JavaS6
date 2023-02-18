@@ -87,4 +87,8 @@ public class Board {
     	int[] pos = {x, y};
     	return cells.get(pos);
     }
+
+    public Difficulty getDifficulty(){
+        return this.difficulty;
+    }
 }
