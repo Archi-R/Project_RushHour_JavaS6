@@ -5,8 +5,8 @@ import java.io.IOException;
 
 /**
  * Class that represent the different configuration.
- * @author
- * @version
+ * @author Hypolite
+ * @version 1.0
  */
 public class Config {
 
