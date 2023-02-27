@@ -2,6 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class representing the board object and it's function.
@@ -86,7 +87,12 @@ public class Board {
 
     public Cell getCell(int x, int y) {
     	int[] pos = {x, y};
-    	return cells.get(pos);
+        for(Map.Entry mapentry : cells.entrySet()){
+            if(mapentry.getKey() == pos){
+                return (Cell) mapentry.getValue();
+            }
+        }
+        return null;
     }
 
     public Difficulty getDifficulty(){

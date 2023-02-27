@@ -55,7 +55,7 @@ public enum NameColor {
 
     public static NameColor getNameColor(String color) {
         for (NameColor nameColor : NameColor.values()) {
-            if (nameColor.color.equals(color)) {
+            if (String.valueOf(nameColor).equals(color)) {
                 return nameColor;
             }
         }

@@ -52,7 +52,7 @@ public class Config {
      * @throws IOException
      */
     public String[] parserConfig(Difficulty difficulty, int level) throws IOException {
-        file file = new file(("/../../Ressources/"+String.valueOf(difficulty)+".cfg"));
+        file file = new file(("C:\\Users\\lagou\\Documents\\Cours\\POO\\projet\\resources\\"+String.valueOf(difficulty)+".cfg"));
         FileReader fis = new FileReader(file);
         int nbLine = file.findLine(fis);
 
