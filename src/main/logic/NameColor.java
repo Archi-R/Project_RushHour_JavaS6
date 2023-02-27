@@ -62,5 +62,4 @@ public enum NameColor {
         return null;
     }
 
-
 }

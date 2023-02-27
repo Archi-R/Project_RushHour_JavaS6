@@ -40,7 +40,7 @@ public class Board {
      * @param difficulty : the wanted difficulty
      * @param configuration : the wanted configuration
      */
-    Board(Difficulty difficulty, Config configuration){
+    public Board(Difficulty difficulty, Config configuration){
         this.difficulty = difficulty;
         this.configuration = configuration;
 
@@ -87,9 +87,9 @@ public class Board {
 
     public Cell getCell(int x, int y) {
     	int[] pos = {x, y};
-        for(Map.Entry mapentry : cells.entrySet()){
-            if(mapentry.getKey() == pos){
-                return (Cell) mapentry.getValue();
+        for(Map.Entry<int[], Cell> entry : cells.entrySet()) {
+            if(entry.getKey()[0] == pos[0] && entry.getKey()[1] == pos[1]) {
+                return entry.getValue();
             }
         }
         return null;
