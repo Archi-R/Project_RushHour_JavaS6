@@ -107,6 +107,36 @@ public class Vehicle {
     }
 
 
+    /**
+     * methods that set as not occupied the cells the vehicle is on.
+     */
+    private void removeOccupiedCells(){
+        if (direction == Direction.Horizontal) {
+            for (int i = 0; i < this.getLength(); i++) {
+                origin.getBoard().getCell(origin.getX() + i, origin.getY()).setOccupied(false);
+            }
+        } else{
+            for(int i=0; i<this.getLength(); i++){
+                origin.getBoard().getCell((origin.getX()), origin.getY() +i).setOccupied(false);
+            }
+        }
+
+
+    }
+
+    /**
+     * Moves the car on the selected case, it must check if the movement is legal
+     * @param c
+     */
+    public void Move(Cell c){
+        // - on doit bouger la voiture
+        // - effacer de toutes ses cellules
+        // - la placer dans toutes les nouvelles cellules
+        // - check si le déplacement correspond bien avec l'orientation de la voiture
+        // - check si le déplacement ne va pas sur une cas déja occupée
+        // -
+    }
+
 
 }
 
