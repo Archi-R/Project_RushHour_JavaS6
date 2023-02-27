@@ -54,20 +54,20 @@ public class Config {
      */
     public String[] parserConfig(Difficulty difficulty, int level) throws IOException {
         // -- debut aller chercher le fichier
-        FileDialog fd = new FileDialog(new Frame(), "Choose a file", FileDialog.LOAD);
-        fd.setDirectory(System.getProperty("user.dir"));
-        fd.setFile("*.cfg");
-        fd.setVisible(true);
+        //FileDialog fd = new FileDialog(new Frame(), "Choose a file", FileDialog.LOAD);
+        //fd.setDirectory(System.getProperty("user.dir"));
+        //fd.setFile("*.cfg");
+        //fd.setVisible(true);
 
-        String filename = fd.getDirectory()+fd.getFile();
-        if (filename == null)
-            System.out.println("You cancelled the choice");
-        else
-            System.out.println("You chose " + filename);
+        //String filename = fd.getDirectory()+fd.getFile();
+        //if (filename == null)
+        //    System.out.println("You cancelled the choice");
+        //else
+        //    System.out.println("You chose " + filename);
         // -- fin aller chercher le fichier
 
-        //h file file = new file(("C:\\Users\\lagou\\Documents\\Cours\\POO\\projet\\resources\\"+String.valueOf(difficulty)+".cfg"));
-        file file = new file((filename));
+        file file = new file(("C:\\Users\\lagou\\Documents\\Cours\\POO\\projet\\resources\\"+String.valueOf(difficulty)+".cfg"));
+        //file file = new file((filename));
         FileReader fis = new FileReader(file);
         int nbLine = file.findLine(fis);
 
