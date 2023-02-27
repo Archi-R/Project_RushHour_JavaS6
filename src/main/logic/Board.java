@@ -100,8 +100,13 @@ public class Board {
      */
     public void initiate(){
         for(int i =0;i<this.configuration.config.length;i++) {
-            Vehicle v = new Vehicle(NameColor.getNameColor(this.configuration.config[i].substring(0,1)),getCell(Integer.parseInt(this.configuration.config[i].substring(2,3)),Integer.parseInt(this.configuration.config[i].substring(3,4))),Direction.todirect(this.configuration.config[i].substring(1,2)));
-            this.cells.get(1).setVehicle(v);
+            int x = Integer.parseInt(this.configuration.config[i].substring(2,3));
+            int y = Integer.parseInt(this.configuration.config[i].substring(3,4));
+            NameColor name = NameColor.getNameColor(this.configuration.config[i].substring(0,1));
+            Direction dir = Direction.todirect(this.configuration.config[i].substring(1,2));
+
+            Vehicle v = new Vehicle(name,getCell(x,y),dir);
+            this.getCell(x,y).setVehicle(v);
         }
     }
 
