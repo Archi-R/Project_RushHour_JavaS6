@@ -22,7 +22,7 @@ public class Config {
      * AV03 représente la voiture de couleur “light_green” placée
      * verticalement à la position (0,3).
      */
-    private String[] config;
+    public String[] config;
 
     /**
      * Difficulty of the configuration.

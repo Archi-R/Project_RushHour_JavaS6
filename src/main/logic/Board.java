@@ -28,6 +28,7 @@ public class Board {
 
     /**
      * The board of the game
+     * int[] contain the position x and y
      */
     private HashMap<int[], Cell> cells = new HashMap<int[], Cell>();
 
@@ -91,4 +92,20 @@ public class Board {
     public Difficulty getDifficulty(){
         return this.difficulty;
     }
+
+
+    /**
+     * Initiate the game board by placing all the cars loaded from configuration
+     *
+     */
+    public void initiate(){
+        for(int i =0;i<this.configuration.config.length;i++) {
+            Vehicle v = new Vehicle(NameColor.getNameColor(this.configuration.config[i].substring(0,1)),getCell(Integer.parseInt(this.configuration.config[i].substring(2,3)),Integer.parseInt(this.configuration.config[i].substring(3,4))),Direction.todirect(this.configuration.config[i].substring(1,2)));
+            this.cells.get(1).setVehicle(v);
+        }
+    }
+
 }
+
+
+
