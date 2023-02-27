@@ -4,5 +4,6 @@ package logic;
  * @author Ronan PEYREL
  */
 public enum Direction {
-    Horizontal, Vertical
+    Horizontal, Vertical;
+
 }

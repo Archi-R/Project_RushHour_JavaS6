@@ -53,5 +53,14 @@ public enum NameColor {
         return color.ordinal() < 12 ? 2 : 3;
     }
 
+    public NameColor getNameColor(String color) {
+        for (NameColor nameColor : NameColor.values()) {
+            if (nameColor.color.equals(color)) {
+                return nameColor;
+            }
+        }
+        return null;
+    }
+
 
 }
