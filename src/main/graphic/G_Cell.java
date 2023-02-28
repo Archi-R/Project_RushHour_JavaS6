@@ -13,7 +13,11 @@ public class G_Cell {
         this.cell = c;
         this.square = new JPanel();
 
-        square.addMouseListener(new MouseListener() {
+        //always set the color as grey
+        square.setBackground(new java.awt.Color(80, 80, 80));
+
+        //add the mouse listener
+        this.square.addMouseListener(new MouseListener() {
 
             Vehicle v;
             @Override

@@ -15,17 +15,13 @@ public class Window implements MouseListener{
 
     private final int dimension = 6;
     private JFrame frame = new JFrame("Rush Hour");
-    private G_Cell[][] graphic_board;
+    private G_Cell[][] graphic_board = new G_Cell[dimension][dimension];
     private Board board;
 
 
-    public Window()
+    public Window(Board board)
     {
-        try {
-            initgraphic_board();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.board = board;
         initFrame();
         frame.addMouseListener(this);
     }
@@ -38,12 +34,8 @@ public class Window implements MouseListener{
         frame.setLocationRelativeTo(null);
         frame.setLayout(new GridLayout(6,6,2,2));
         frame.setVisible(true);
-    }
 
-    private void initgraphic_board() throws IOException {
-        this.board = new Board(Difficulty.beginner, new Config(Difficulty.beginner, 1));
         this.board.initiate();
-         graphic_board = new G_Cell[dimension][dimension];
         for(Cell c : board.getCells().values())
         {
             int x = c.getX();
@@ -53,6 +45,7 @@ public class Window implements MouseListener{
             frame.add(graphic_board[x][y].getSquare());
         }
     }
+
 
     /*
     public void displayPiece(Piece piece)
