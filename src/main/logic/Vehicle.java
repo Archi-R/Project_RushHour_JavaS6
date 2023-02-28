@@ -1,5 +1,7 @@
 package logic;
 
+import static java.lang.Math.abs;
+
 /**
  * Class that represent a vehicle.
  * @author Ronan PEYREL
@@ -120,21 +122,40 @@ public class Vehicle {
                 origin.getBoard().getCell((origin.getX()), origin.getY() +i).setOccupied(false);
             }
         }
+    }
 
+    /**
+     * uklv;jebfvlkbn vl;kjsn vl ;j,hfnb ljz,;j,bn pvkzje;l,nfc viajkq,nv ajq /// flemme
+     * @param destination
+     * @return
+     */
+    public boolean checkMove(Cell destination) {
+        Cell origin = this.getOrigin();
+        int[] diff = {abs(origin.getX()-destination.getX()),abs(origin.getY()- destination.getY())};
+        if( diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.Vertical && !destination.getIsOccupied() ){
+            return true;
+        }else if( diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.Horizontal && !destination.getIsOccupied() ){
+            return true;
+        }else{
+            return false;
+        }
 
     }
+
 
     /**
      * Moves the car on the selected case, it must check if the movement is legal
      * @param c
      */
     public void Move(Cell c){
-        // - on doit bouger la voiture
-        // - effacer de toutes ses cellules
-        // - la placer dans toutes les nouvelles cellules
-        // - check si le déplacement correspond bien avec l'orientation de la voiture
-        // - check si le déplacement ne va pas sur une cas déja occupée
-        // -
+
+        if(!checkMove(c)){
+            // don't move
+        }else{
+            this.removeOccupiedCells();
+            this.setOrigin(c);
+            this.setOccupiedCells();
+        }
     }
 
 
