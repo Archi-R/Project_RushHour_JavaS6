@@ -1,5 +1,7 @@
 package logic;
 
+import java.awt.*;
+
 import static java.lang.Math.abs;
 
 /**
@@ -81,7 +83,7 @@ public class Vehicle {
      * Getter of the color attribute.
      * @return The color of the vehicle.
      */
-    public String getColor() {
+    public Color getColor() {
         return NameColor.getColor(nameColor);
     }
 

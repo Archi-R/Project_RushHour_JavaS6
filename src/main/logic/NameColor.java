@@ -22,31 +22,31 @@ public enum NameColor {
     H grey I light_yellow J dark_brown K dark_green
     Camions O yellow P purple Q dark_blue R green
     */
-    private static HashMap<NameColor, String> colornameMap = new HashMap<NameColor, String>();
+    private static HashMap<NameColor, Color> colornameMap = new HashMap<NameColor, Color>();
 
     static {
-        colornameMap = new HashMap<NameColor, String>();
-        colornameMap.put(X, "red");
-        colornameMap.put(A, "light_green");
-        colornameMap.put(B, "orange");
-        colornameMap.put(C, "blue");
-        colornameMap.put(D, "pink");
-        colornameMap.put(E, "dark_purple");
-        colornameMap.put(F, "green");
-        colornameMap.put(G, "dark_grey");
-        colornameMap.put(H, "grey");
-        colornameMap.put(I, "light_yellow");
-        colornameMap.put(J, "dark_brown");
-        colornameMap.put(K, "dark_green");
+        colornameMap = new HashMap<NameColor, Color>();
+        colornameMap.put(X, Color.RED);
+        colornameMap.put(A, new Color(144, 238, 144));
+        colornameMap.put(B, Color.ORANGE);
+        colornameMap.put(C, Color.BLUE);
+        colornameMap.put(D, Color.PINK);
+        colornameMap.put(E, new Color(128, 0, 128));
+        colornameMap.put(F, Color.green);
+        colornameMap.put(G, Color.darkGray);
+        colornameMap.put(H, Color.green);
+        colornameMap.put(I, new Color(255, 237, 131));
+        colornameMap.put(J, new Color(101, 67, 33));
+        colornameMap.put(K, new Color(1, 50, 32));
 
-        colornameMap.put(O, "yellow");
-        colornameMap.put(P, "purple");
-        colornameMap.put(Q, "dark_blue");
-        colornameMap.put(R, "green");
+        colornameMap.put(O, Color.yellow);
+        colornameMap.put(P, new Color(106, 13, 173));
+        colornameMap.put(Q, new Color(2, 7, 93));
+        colornameMap.put(R, Color.green);
     }
 
-    public static String getColor(NameColor color) {
-        return colornameMap.get(color);
+    public static Color getColor(NameColor nc) {
+        return colornameMap.get(nc);
     }
 
     public static int getLenght(NameColor color) {
