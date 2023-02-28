@@ -94,6 +94,9 @@ public class Board {
         }
         return null;
     }
+    public HashMap<int[], Cell> getCells() {
+        return cells;
+    }
 
     public Difficulty getDifficulty(){
         return this.difficulty;

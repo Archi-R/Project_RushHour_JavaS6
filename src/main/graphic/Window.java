@@ -1,29 +1,31 @@
 package graphic;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import logic.*;
-/*
 
-public class Fenetre implements MouseListener{
+
+public class Window implements MouseListener{
 
     private final int dimension = 6;
     private JFrame frame = new JFrame("Rush Hour");
+    private G_Cell[][] graphic_board;
     private Board board;
 
 
-    public Fenetre()
+    public Window()
     {
-        initChessboard();
+        try {
+            initgraphic_board();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         initFrame();
         frame.addMouseListener(this);
     }
@@ -38,87 +40,33 @@ public class Fenetre implements MouseListener{
         frame.setVisible(true);
     }
 
-    private void initChessboard()
-    {
-        for(int j = dimension -1; j >= 0; j--)// boucle ordonnées
+    private void initgraphic_board() throws IOException {
+        this.board = new Board(Difficulty.beginner, new Config(Difficulty.beginner, 1));
+        this.board.initiate();
+         graphic_board = new G_Cell[dimension][dimension];
+        for(Cell c : board.getCells().values())
         {
-            for(int i = 0; i < dimension ; i++) // boucle abscisses
-            {
-                if((i + j) % 2 == 0) // permet d'obtenir un vrai 1/2 ce que  (j%2) ne permettait pas
-                {
-                    chessboard[i][j] = new Square(i, j, true, false);
-                    chessboard[i][j].getSquare().setBackground(new Color(128, 64, 0));
-                }
-                else
-                {
-                    chessboard[i][j] = new Square(i, j, false, false);
-                    chessboard[i][j].getSquare().setBackground(new Color(250,224,124));
-                }
-                chessboard[i][j].getSquare().setPreferredSize(new Dimension(50,50));
-                chessboard[i][j].getSquare().setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                final int x = i, l = j;
+            int x = c.getX();
+            int y = c.getY();
+            graphic_board[x][y] = new G_Cell(c);
 
-                chessboard[i][j].getSquare().addMouseListener(new MouseListener() {
-
-                    Piece p;
-                    @Override
-                    public void mouseReleased(MouseEvent e) {}
-
-                    @Override
-                    public void mousePressed(MouseEvent e) {}
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {}
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {}
-
-                    @Override
-                    public void mouseClicked(MouseEvent e)
-                    {
-                        if(p == null)
-                        {
-                            p = chessboard[x][l].getPiece();
-                        }
-                        else
-                        {
-                            try
-                            {
-                                if(chessboard[x][l].getPiece() == null)
-                                {
-                                    System.out.println("ok");
-                                    chessboard[x][l].getPiece().deplacer(chessboard, x, l, x, l+1);
-                                    frame.revalidate();
-                                    p = null;
-                                }
-                                else
-                                {
-                                    System.out.println("case non vide");
-                                }
-                            }
-                            catch(Exception ex){
-                                System.out.println("case vide");
-                                System.out.println("x : " + x + " y : " + l);
-                            }
-                        }
-                    }
-                });
-                frame.add(chessboard[i][j].getSquare());
-            }
+            frame.add(graphic_board[x][y].getSquare());
         }
     }
 
+    /*
     public void displayPiece(Piece piece)
     {
-        chessboard[piece.getPositionX()][piece.getPositionY()].getSquare().add(new JLabel(new ImageIcon("Images/pionBlanc.jpg")));
+        graphic_board[piece.getPositionX()][piece.getPositionY()].getSquare().add(new JLabel(new ImageIcon("Images/pionBlanc.jpg")));
         frame.revalidate();
     }
 
     public Square getASquare(int i, int j) // ne retourne qu'une case de notre tableau, utilise pour set une piece
     {
-        return chessboard[i][j];
+        return graphic_board[i][j];
     }
 
+    */
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
@@ -148,7 +96,5 @@ public class Fenetre implements MouseListener{
         // TODO Auto-generated method stub
 
     }
+
 }
-public class Window {
-}
-*/
