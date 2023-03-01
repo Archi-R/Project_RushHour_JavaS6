@@ -13,10 +13,10 @@ public class G_Vehicle extends JFrame implements MouseListener, MouseMotionListe
 
     public G_Vehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+        this.setBackground(vehicle.getColor());
 
-    }
-    private void setColor() {
-        //switch (this.vehicle.getColor())
+        this.addMouseListener(this);
+
     }
 
     /**

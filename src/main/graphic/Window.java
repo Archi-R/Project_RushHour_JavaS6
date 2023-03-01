@@ -44,6 +44,7 @@ public class Window implements MouseListener{
 
             frame.add(graphic_board[x][y].getSquare());
         }
+
     }
 
 
