@@ -1,11 +1,13 @@
 package logic;
 
+import graphic.Window;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
+        /*
         Scanner sc = new Scanner(System.in);
         System.out.println("Rush hour game");
         System.out.println("Choose a difficulty : (beginner,intermediate,advanced,expert,grandmaster)");
@@ -18,6 +20,13 @@ public class Main {
         Config config = new Config(difficulty,level);
         Board board = new Board(difficulty,config);
         board.initiate(); // load the configuration
+        */
+        Board board = new Board(Difficulty.beginner, new Config(Difficulty.beginner, 1));
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Window w = new Window(board);
 
+            }
+        });
     }
 }
