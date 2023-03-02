@@ -1,6 +1,6 @@
 package logic;
 
-import java.awt.*;
+import java.awt.Color;
 
 import static java.lang.Math.abs;
 
