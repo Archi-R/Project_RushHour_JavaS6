@@ -2,8 +2,11 @@ package logic;
 
 /**
  * Class that represent the object cell.
- * @author Hypolite
- * @version 1.0
+ * @author Hypolite, Houda
+ * 
+ * @inv 0 <= getX() <= Board.SIZE
+ * @inv 0 <= getY() <= Board.SIZE
+ * @inv : vehicle = null => isOccupied() = false
  */
 
 public class Cell {
@@ -11,19 +14,12 @@ public class Cell {
     /**
      * Represent the position of the case on the x axis
      */
-    private int X;
+    private int x;
 
     /**
      * Represent the position of the case on the y axis
      */
-    private int Y;
-
-
-    /**
-     * Determine if the current cell is occupied by a vehicle or
-     * not
-     */
-    private boolean isOccupied;
+    private int y;
 
     /**
      * The car that is on the current cell
@@ -35,8 +31,7 @@ public class Cell {
      */
     private Board board;
 
-    ///////////// methods
-
+    //CONSTRUCTEURS
     /**
      * Create a cell
      * @param X : the position on the x axis
@@ -44,11 +39,10 @@ public class Cell {
      * @param isOccupied : if the cell is occupied or not
      * @param vehicle : the vehicle which is on the cell
      */
-    Cell(Board b, int X, int Y, boolean isOccupied, Vehicle vehicle){
-        this.board = b;
-        this.X = X;
-        this.Y = Y;
-        this.isOccupied = isOccupied;
+    Cell(Board b, int x, int y, Vehicle vehicle){
+        board = b;
+        this.x = x;
+        this.y = y;
         this.vehicle = vehicle;
     }
 
@@ -67,7 +61,7 @@ public class Cell {
      * @return
      */
     public int getX(){
-        return X;
+        return x;
     }
 
     /**
@@ -76,7 +70,7 @@ public class Cell {
      * @return
      */
     public int getY(){
-        return Y;
+        return y;
     }
 
 
@@ -84,37 +78,24 @@ public class Cell {
      * set the state of the cell
      * @return
      */
-    public boolean getIsOccupied(){
-        return isOccupied;
+    public boolean isOccupied(){
+        return vehicle != null;
     }
 
     /**
-     * set the position of the cell on the x axis
-     * @param x
-     * @inv x <= 5
-     * @inv x >= 0
+     * Déplacement du vehicule en spécifiant la différance
+     * @param dx
      */
-    public void setX(int x){
-        this.X = x;
+    public void setX(int dx){
+        x += dx;
     }
 
     /**
-     * set the position of the cell on the y axis
-     * @param y
-     * @inv y <= 5
-     * @inv y >= 0
+     * set the position of the cell on the y ax is
+     * @param dy
      */
-    public void setY(int y){
-        this.Y = y;
-    }
-
-    /**
-     * set if the cell is occupied
-     * @param iO
-     * @inv : vehicle = null => isOccupied = false
-     */
-    public void setOccupied(boolean iO){
-        this.isOccupied = iO;
+    public void setY(int dy){
+        y += dy;
     }
 
     /**
@@ -122,7 +103,7 @@ public class Cell {
      * @param v
      */
     public void setVehicle(Vehicle v){
-        this.vehicle = v;
+        vehicle = v;
     }
 
 
@@ -130,5 +111,7 @@ public class Cell {
      * return the board that contains the current cell
      * @return
      */
-    public Board getBoard() {return this.board;}
+    public Board getBoard() {
+    	return board;
+    }
 }
