@@ -10,13 +10,19 @@ import javax.swing.JLabel;
 
 import logic.*;
 
-
+/**
+    * Class that represents the window of the game
+    * It contains the graphic board and the logic board
+    * @author: Ronan PEYREL
+ */
 public class Window implements MouseListener{
 
     private final int dimension = 6;
     private JFrame frame = new JFrame("Rush Hour");
     private G_Cell[][] graphic_board = new G_Cell[dimension][dimension];
     private Board board;
+
+    private boolean isMovingState = false;
 
 
     public Window(Board board)
@@ -36,17 +42,38 @@ public class Window implements MouseListener{
         frame.setVisible(true);
 
         this.board.initiate();
-        for(Cell c : board.getCells().values())
-        {
-            int x = c.getX();
-            int y = c.getY();
-            graphic_board[x][y] = new G_Cell(c);
 
-            frame.add(graphic_board[x][y].getSquare());
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                if(graphic_board[i][j] == null)
+                {
+                    Cell c = board.getCell(j, i);
+                    graphic_board[i][j] = new G_Cell(c,this);
+                    frame.add(graphic_board[i][j].getSquare());
+
+
+                }
+            }
         }
-
+        this.redraw();
     }
 
+    private void redraw()
+    {
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                graphic_board[i][j].redraw();
+            }
+        }
+    }
+
+    public boolean isMovingState() {
+        return this.isMovingState;
+    }
+
+    public void setMovingState(boolean isMovingState) {
+        this.isMovingState = isMovingState;
+    }
 
     /*
     public void displayPiece(Piece piece)

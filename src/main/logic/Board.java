@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * Class representing the board object and it's function.
- * @author Hypolite
+ * @author Hypolite LAGOUTTE & Ronan PEYREL
  * @version 1.0
  */
 
@@ -108,15 +108,33 @@ public class Board {
      *
      */
     public void initiate(){
-        for(int i =0;i<this.configuration.config.length;i++) {
-            int x = Integer.parseInt(this.configuration.config[i].substring(2,3));
-            int y = Integer.parseInt(this.configuration.config[i].substring(3,4));
-            NameColor name = NameColor.getNameColor(this.configuration.config[i].substring(0,1));
-            Direction dir = Direction.todirect(this.configuration.config[i].substring(1,2));
+        String[] conf = this.configuration.getConfig();
+        for(int i =0;i<conf.length;i++) {
+            int x = Integer.parseInt(conf[i].substring(2,3));
+            int y = Integer.parseInt(conf[i].substring(3,4));
+            NameColor name = NameColor.getNameColor(conf[i].substring(0,1));
+            Direction dir = Direction.todirect(conf[i].substring(1,2));
 
             Vehicle v = new Vehicle(name,getCell(x,y),dir);
-            this.getCell(x,y).setVehicle(v);
+            this.placeVehicle(v,x,y);
         }
+    }
+
+    public void placeVehicle(Vehicle v, int x, int y) {
+        if (v.getDirection() == Direction.HORIZONTAL) {
+            if (x + v.getLength() > 6) { // if the vehicle is out of the board
+                x = 6 - v.getLength(); // modifying the destination x to place the vehicle fully on the board
+            }
+        } else {
+            if (y + v.getLength() > 6) { // if the vehicle is out of the board
+                y = 6 - v.getLength(); // modifying the destination y to place the vehicle fully on the board
+            }
+        }
+        //placing the origin of the vehicle
+        v.setOrigin(getCell(x, y));
+
+        //placing the vehicle on the board (therefore, on the cells)
+        v.setOccupiedCells();
     }
 
 }

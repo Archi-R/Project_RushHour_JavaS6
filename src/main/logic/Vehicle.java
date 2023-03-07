@@ -98,14 +98,18 @@ public class Vehicle {
     /**
      * Methods that set as occupied the cells the Vehicle is on.
      */
-    private void setOccupiedCells() {
-        if (direction == Direction.Horizontal) {
+    public void setOccupiedCells() {
+        if (direction == Direction.HORIZONTAL) {
             for (int i = 0; i < this.getLength(); i++) {
-                origin.getBoard().getCell(origin.getX() + i, origin.getY()).setOccupied(true);
+                Cell c = origin.getBoard().getCell(origin.getX() + i, origin.getY());
+                c.setOccupied(true);
+                c.setVehicle(this);
             }
         } else {
             for (int i = 0; i < this.getLength(); i++) {
-                origin.getBoard().getCell(origin.getX(), origin.getY() + i).setOccupied(true);
+                Cell c = origin.getBoard().getCell(origin.getX(), origin.getY() + i);
+                c.setOccupied(true);
+                c.setVehicle(this);
             }
         }
     }
@@ -115,7 +119,7 @@ public class Vehicle {
      * methods that set as not occupied the cells the vehicle is on.
      */
     private void removeOccupiedCells(){
-        if (direction == Direction.Horizontal) {
+        if (direction == Direction.HORIZONTAL) {
             for (int i = 0; i < this.getLength(); i++) {
                 origin.getBoard().getCell(origin.getX() + i, origin.getY()).setOccupied(false);
             }
@@ -134,9 +138,9 @@ public class Vehicle {
     public boolean checkMove(Cell destination) {
         Cell origin = this.getOrigin();
         int[] diff = {abs(origin.getX()-destination.getX()),abs(origin.getY()- destination.getY())};
-        if( diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.Vertical && !destination.getIsOccupied() ){
+        if( diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.VERTICAL && !destination.getIsOccupied() ){
             return true;
-        }else if( diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.Horizontal && !destination.getIsOccupied() ){
+        }else if( diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.HORIZONTAL && !destination.getIsOccupied() ){
             return true;
         }else{
             return false;

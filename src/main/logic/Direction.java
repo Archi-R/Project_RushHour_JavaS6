@@ -4,13 +4,13 @@ package logic;
  * @author Ronan PEYREL
  */
 public enum Direction {
-    Horizontal, Vertical;
+    HORIZONTAL, VERTICAL;
 
     public static Direction todirect(String letter){
         if(letter.equals("H")){
-            return Horizontal;
+            return HORIZONTAL;
         }else if(letter.equals("V")){
-            return Vertical;
+            return VERTICAL;
         }else{
             return null;
         }

@@ -23,7 +23,7 @@ public class Config {
      * AV03 représente la voiture de couleur “light_green” placée
      * verticalement à la position (0,3).
      */
-    public String[] config;
+    private String[] config;
 
     /**
      * Difficulty of the configuration.
@@ -53,7 +53,7 @@ public class Config {
      * @throws IOException
      */
     public String[] parserConfig(Difficulty difficulty, int level) throws IOException {
-        // -- debut aller chercher le fichier
+        /* -- debut aller chercher le fichier
         //FileDialog fd = new FileDialog(new Frame(), "Choose a file", FileDialog.LOAD);
         //fd.setDirectory(System.getProperty("user.dir"));
         //fd.setFile("*.cfg");
@@ -65,6 +65,7 @@ public class Config {
         //else
         //    System.out.println("You chose " + filename);
         // -- fin aller chercher le fichier
+        */
 
         file file = new file(("C:\\Users\\lagou\\Documents\\Cours\\POO\\projet\\resources\\"+String.valueOf(difficulty)+".cfg"));
         //file file = new file((filename));

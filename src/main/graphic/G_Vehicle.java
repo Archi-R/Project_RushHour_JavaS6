@@ -7,95 +7,60 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class G_Vehicle extends JFrame implements MouseListener, MouseMotionListener {
+public class G_Vehicle{
     private Vehicle vehicle;
     private Cell targetCell = null;
 
+    private JPanel rectangle = new JPanel();
+
     public G_Vehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
-        this.setBackground(vehicle.getColor());
 
-        this.addMouseListener(this);
+        this.rectangle.setBackground(vehicle.getColor());
 
+        //add the mouse listener
+        this.rectangle.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                System.out.println(getVehicle().toString());
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+        });
     }
 
-    /**
-     * Invoked when the mouse button has been clicked (pressed
-     * and released) on a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
+    public Vehicle getVehicle(){
+        return vehicle;
     }
 
-    /**
-     * Invoked when a mouse button has been pressed on a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mousePressed(MouseEvent e) {
-
+    public void setVehicle(Vehicle vehicle){
+        this.vehicle = vehicle;
     }
 
-    /**
-     * Invoked when a mouse button has been released on a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
+    public Cell getTargetCell(){
+        return targetCell;
     }
 
-    /**
-     * Invoked when the mouse enters a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
+    public void setTargetCell(Cell targetCell){
+        this.targetCell = targetCell;
     }
 
-    /**
-     * Invoked when the mouse exits a component.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    public JPanel getSquare(){
+        return rectangle;
     }
 
-    /**
-     * Invoked when a mouse button is pressed on a component and then
-     * dragged.  {@code MOUSE_DRAGGED} events will continue to be
-     * delivered to the component where the drag originated until the
-     * mouse button is released (regardless of whether the mouse position
-     * is within the bounds of the component).
-     * <p>
-     * Due to platform-dependent Drag&amp;Drop implementations,
-     * {@code MOUSE_DRAGGED} events may not be delivered during a native
-     * Drag&amp;Drop operation.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseDragged(MouseEvent e) {
-
+    public void setSquare(JPanel square){
+        this.rectangle = square;
     }
 
-    /**
-     * Invoked when the mouse cursor has been moved onto a component
-     * but no buttons have been pushed.
-     *
-     * @param e the event to be processed
-     */
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
 }
