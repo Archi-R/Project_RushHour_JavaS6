@@ -41,7 +41,7 @@ public class G_Cell{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(cell.getIsOccupied()&& !window.isMovingState()){
+                if(cell.isOccupied()&& !window.isMovingState()){
                     window.setMovingState(true);
                     setMovingVehicle(cell.getVehicle());
                 } else if (false) {

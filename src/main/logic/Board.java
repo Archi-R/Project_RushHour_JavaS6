@@ -47,7 +47,7 @@ public class Board {
         // Create the cells
         for(int i = 0; i < boardSize; i++){
             for(int j = 0; j < boardSize; j++){
-                Cell c = new Cell(this, i, j, false, null);
+                Cell c = new Cell(this, i, j, null);
                 int[] pos = {i, j};
                 cells.put(pos, c);
             }
@@ -124,6 +124,12 @@ public class Board {
         if (v.getDirection() == Direction.HORIZONTAL) {
             if (x + v.getLength() > 6) { // if the vehicle is out of the board
                 x = 6 - v.getLength(); // modifying the destination x to place the vehicle fully on the board
+            }else{
+                for (int i = 0; i < v.getLength(); i++) {
+                    if (getCell(x + i, y).isOccupied()) {
+                        placeVehicle(v, x + 1, y);
+                    }
+                }
             }
         } else {
             if (y + v.getLength() > 6) { // if the vehicle is out of the board

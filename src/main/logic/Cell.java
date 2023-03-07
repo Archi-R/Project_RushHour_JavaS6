@@ -34,9 +34,8 @@ public class Cell {
     //CONSTRUCTEURS
     /**
      * Create a cell
-     * @param X : the position on the x axis
-     * @param Y : the position on the y axis
-     * @param isOccupied : if the cell is occupied or not
+     * @param x : the position on the x axis
+     * @param y : the position on the y axis
      * @param vehicle : the vehicle which is on the cell
      */
     Cell(Board b, int x, int y, Vehicle vehicle){

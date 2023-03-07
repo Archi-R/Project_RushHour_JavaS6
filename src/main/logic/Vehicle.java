@@ -102,13 +102,11 @@ public class Vehicle {
         if (direction == Direction.HORIZONTAL) {
             for (int i = 0; i < this.getLength(); i++) {
                 Cell c = origin.getBoard().getCell(origin.getX() + i, origin.getY());
-                c.setOccupied(true);
                 c.setVehicle(this);
             }
         } else {
             for (int i = 0; i < this.getLength(); i++) {
                 Cell c = origin.getBoard().getCell(origin.getX(), origin.getY() + i);
-                c.setOccupied(true);
                 c.setVehicle(this);
             }
         }
@@ -121,11 +119,11 @@ public class Vehicle {
     private void removeOccupiedCells(){
         if (direction == Direction.HORIZONTAL) {
             for (int i = 0; i < this.getLength(); i++) {
-                origin.getBoard().getCell(origin.getX() + i, origin.getY()).setOccupied(false);
+                origin.getBoard().getCell(origin.getX() + i, origin.getY()).setVehicle(null);
             }
         } else{
             for(int i=0; i<this.getLength(); i++){
-                origin.getBoard().getCell((origin.getX()), origin.getY() +i).setOccupied(false);
+                origin.getBoard().getCell((origin.getX()), origin.getY() +i).setVehicle(null);
             }
         }
     }
@@ -138,9 +136,9 @@ public class Vehicle {
     public boolean checkMove(Cell destination) {
         Cell origin = this.getOrigin();
         int[] diff = {abs(origin.getX()-destination.getX()),abs(origin.getY()- destination.getY())};
-        if( diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.VERTICAL && !destination.getIsOccupied() ){
+        if( diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.VERTICAL && !destination.isOccupied()){
             return true;
-        }else if( diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.HORIZONTAL && !destination.getIsOccupied() ){
+        }else if( diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.HORIZONTAL && !destination.isOccupied() ){
             return true;
         }else{
             return false;
@@ -161,6 +159,8 @@ public class Vehicle {
             this.removeOccupiedCells();
             this.setOrigin(c);
             this.setOccupiedCells();
+
+            c.getBoard().placeVehicle(this, c.getX(), c.getY());
         }
     }
 
