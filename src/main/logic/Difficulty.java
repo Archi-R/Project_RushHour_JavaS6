@@ -1,8 +1,7 @@
 package logic;
 
 /**
- * @autor Hypolite
- * @version 1.0
+ * @autor Hypolite, Houda
  */
 public enum Difficulty {
 
@@ -10,13 +9,7 @@ public enum Difficulty {
      * difficulties enumeration
      */
     beginner, intermediate, advanced, expert, grandmaster;
-
-    public static Difficulty todiff(String diff){
-        for (Difficulty difficulty : Difficulty.values()) {
-            if (String.valueOf(difficulty).equals(diff)) {
-                return difficulty;
-            }
-        }
-        return null;
-    }
+	//Pas besoin de la méthode todiff() qui avait avant. 
+	//Une méthode des Enums JAVA existe déjà ValueOf
 }
+
