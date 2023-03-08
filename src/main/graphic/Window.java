@@ -76,7 +76,7 @@ public class Window implements MouseListener{
             }
         }
         System.out.println("Moving state: "+this.isMovingState);
-        System.out.println("Color: "+this.movingVehicle.getColor().toString());
+        System.out.println(movingVehicle == null ? "no vehicle": "Color: "+this.movingVehicle.getNameColor());
         frame.repaint();
     }
 
