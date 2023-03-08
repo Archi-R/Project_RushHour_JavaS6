@@ -34,6 +34,8 @@ public class Window implements MouseListener{
 
     private Vehicle movingVehicle = null;
 
+    private int diff;
+
 
     public Window(Board board)
     {
@@ -77,6 +79,7 @@ public class Window implements MouseListener{
         }
         System.out.println("Moving state: "+this.isMovingState);
         System.out.println(movingVehicle == null ? "no vehicle": "Color: "+this.movingVehicle.getNameColor());
+        System.out.println("diff value :" + diff);
         frame.repaint();
     }
 
@@ -118,4 +121,9 @@ public class Window implements MouseListener{
 
     }
 
+    public void setDiff(int originDiff) {
+        this.diff = originDiff;
+    }
+
+    public int getDiff() { return this.diff; }
 }

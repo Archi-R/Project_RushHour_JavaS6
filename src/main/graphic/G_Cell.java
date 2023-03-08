@@ -14,6 +14,7 @@ public class G_Cell{
     private JPanel square;
     private Window window;
 
+
     public G_Cell(Cell c, Window window){
         this.cell = c;
         this.square = new JPanel();
@@ -43,12 +44,18 @@ public class G_Cell{
                 if(cell.isOccupied()&& !window.isMovingState()){ // before everything
                     window.setMovingState(true);
                     window.setMovingVehicle(cell.getVehicle());
+                    window.setDiff(cell.originDiff());
                 } else if (window.isMovingState()                                                                       // if we're in moving state(we clicked on a vehicle)
                         &&window.getMovingVehicle() != null                                                             // if we're holding a vehicle
                         ) {  // if the cell is empty or occup. by the vehicle we're holding
                     window.setMovingState(false);
-                    window.getMovingVehicle().move(cell);
+                    if(window.getMovingVehicle().getDirection() == Direction.HORIZONTAL) {
+                        window.getMovingVehicle().move(cell.getBoard().getCell(cell.getX() - window.getDiff(), cell.getY()));
+                    }else if(window.getMovingVehicle().getDirection() == Direction.VERTICAL){
+                        window.getMovingVehicle().move(cell.getBoard().getCell(cell.getX(), cell.getY()- window.getDiff()));
+                    }
                     window.setMovingVehicle(null);
+                    window.setDiff(0);
                 } else if (window.isMovingState() && window.getMovingVehicle() == null) { //if the fist click was on an empty cell
                     window.setMovingState(false);
                 }

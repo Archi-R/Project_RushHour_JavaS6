@@ -30,8 +30,8 @@ public class Main {
             }
         });
 
-//        boolean victory = board.getCell(2, 5).getVehicle().getNameColor() == NameColor.X;
-//        while(!victory) //while the car on the "win" cell isn't the red car
+
+//        while(!(board.getCell(5, 2).getVehicle().getNameColor() == NameColor.X;)) //while the car on the "win" cell isn't the red car
 //        {
 //            // main game
 //        }

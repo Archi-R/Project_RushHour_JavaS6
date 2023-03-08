@@ -130,7 +130,7 @@ public class Cell {
                 // check the cell (x-1,y) to see if it is the same color
                 if(this.getBoard().getCell(x-i,y).getVehicle().getNameColor() == nc){
                     // if it is, then it is the origin
-                    diff--;
+                    diff ++;
                 }
             }
             return diff;
@@ -138,10 +138,11 @@ public class Cell {
             for(int i=1;i<2;i++){
                 // check the cell (x;y-1) to see if it is the same color
                 if(this.getBoard().getCell(x,y-i).getVehicle().getNameColor() == nc){
-                    diff --;
+                    diff ++;
                 }
             }
             return diff;
         }
+        return diff;
     }
 }
