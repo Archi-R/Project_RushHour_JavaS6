@@ -13,7 +13,6 @@ public class G_Cell{
     private Cell cell;
     private JPanel square;
     private Window window;
-    private Vehicle movingVehicle = null;
 
     public G_Cell(Cell c, Window window){
         this.cell = c;
@@ -41,12 +40,17 @@ public class G_Cell{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(cell.isOccupied()&& !window.isMovingState()){
+                if(cell.isOccupied()&& !window.isMovingState()){ //we take the vehicle
                     window.setMovingState(true);
-                    setMovingVehicle(cell.getVehicle());
-                } else if (false) {
-                    
+                    window.setMovingVehicle(cell.getVehicle());
+                } else if (window.isMovingState() && window.getMovingVehicle() != null) { //we put the vehicle
+                    window.setMovingState(false);
+                    window.getMovingVehicle().move(cell);
+                    window.setMovingVehicle(null);
+                } else if (window.isMovingState() && window.getMovingVehicle() == null) { //we cancel the movement -- this state should never happen
+                    window.setMovingState(false);
                 }
+                window.redraw();
             }
         });
 
@@ -66,14 +70,6 @@ public class G_Cell{
 
     public void setSquare(JPanel square){
         this.square = square;
-    }
-
-    public Vehicle getMovingVehicle(){
-        return movingVehicle;
-    }
-
-    public void setMovingVehicle(Vehicle movingVehicle){
-        this.movingVehicle = movingVehicle;
     }
 
     public void redraw(){

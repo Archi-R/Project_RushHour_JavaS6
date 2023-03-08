@@ -24,6 +24,16 @@ public class Window implements MouseListener{
 
     private boolean isMovingState = false;
 
+    public Vehicle getMovingVehicle() {
+        return movingVehicle;
+    }
+
+    public void setMovingVehicle(Vehicle movingVehicle) {
+        this.movingVehicle = movingVehicle;
+    }
+
+    private Vehicle movingVehicle = null;
+
 
     public Window(Board board)
     {
@@ -58,13 +68,16 @@ public class Window implements MouseListener{
         this.redraw();
     }
 
-    private void redraw()
+    public void redraw()
     {
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 graphic_board[i][j].redraw();
             }
         }
+        System.out.println("Moving state: "+this.isMovingState);
+        System.out.println("Color: "+this.movingVehicle.getColor().toString());
+        frame.repaint();
     }
 
     public boolean isMovingState() {
@@ -75,19 +88,6 @@ public class Window implements MouseListener{
         this.isMovingState = isMovingState;
     }
 
-    /*
-    public void displayPiece(Piece piece)
-    {
-        graphic_board[piece.getPositionX()][piece.getPositionY()].getSquare().add(new JLabel(new ImageIcon("Images/pionBlanc.jpg")));
-        frame.revalidate();
-    }
-
-    public Square getASquare(int i, int j) // ne retourne qu'une case de notre tableau, utilise pour set une piece
-    {
-        return graphic_board[i][j];
-    }
-
-    */
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub

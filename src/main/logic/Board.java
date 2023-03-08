@@ -122,9 +122,19 @@ public class Board {
 
     public void placeVehicle(Vehicle v, int x, int y) {
         if (v.getDirection() == Direction.HORIZONTAL) {
-            if (x + v.getLength() > 6) { // if the vehicle is out of the board
-                x = 6 - v.getLength(); // modifying the destination x to place the vehicle fully on the board
-            }else{
+            //board limit
+            if (x + v.getLength() > this.boardSize) { // if the vehicle is out of the board
+                placeVehicle(v,x-1,y); // modifying the destination x to place the vehicle fully on the board
+            }
+            //collision
+            if(v.getOrigin().getX()>x) { // if the vehicle is moving to the left
+                for (int i = 0; i < v.getLength(); i++) {
+                    if (getCell(x + i, y).isOccupied()) {
+                        placeVehicle(v, x - 1, y);
+                    }
+                }
+            }
+            else if(v.getOrigin().getX()<x) { // if the vehicle is moving to the right
                 for (int i = 0; i < v.getLength(); i++) {
                     if (getCell(x + i, y).isOccupied()) {
                         placeVehicle(v, x + 1, y);
@@ -132,8 +142,24 @@ public class Board {
                 }
             }
         } else {
-            if (y + v.getLength() > 6) { // if the vehicle is out of the board
-                y = 6 - v.getLength(); // modifying the destination y to place the vehicle fully on the board
+            //board limit
+            if (y + v.getLength() > this.boardSize) { // if the vehicle is out of the board
+                placeVehicle(v,x,y-1); // modifying the destination y to place the vehicle fully on the board
+            }
+            //collision
+            if(v.getOrigin().getY()>y) { // if the vehicle is moving up
+                for (int i = 0; i < v.getLength(); i++) {
+                    if (getCell(x, y + i).isOccupied()) {
+                        placeVehicle(v, x, y - 1);
+                    }
+                }
+            }
+            else if(v.getOrigin().getY()<y) { // if the vehicle is moving down
+                for (int i = 0; i < v.getLength(); i++) {
+                    if (getCell(x, y + i).isOccupied()) {
+                        placeVehicle(v, x, y + 1);
+                    }
+                }
             }
         }
         //placing the origin of the vehicle

@@ -151,7 +151,7 @@ public class Vehicle {
      * Moves the car on the selected case, it must check if the movement is legal
      * @param c
      */
-    public void Move(Cell c){
+    public void move(Cell c){
 
         if(!checkMove(c)){
             // don't move
