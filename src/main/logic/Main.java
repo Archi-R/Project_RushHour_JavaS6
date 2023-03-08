@@ -2,6 +2,7 @@ package logic;
 
 import graphic.Window;
 
+import javax.lang.model.element.Name;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -28,5 +29,11 @@ public class Main {
 
             }
         });
+
+//        boolean victory = board.getCell(2, 5).getVehicle().getNameColor() == NameColor.X;
+//        while(!victory) //while the car on the "win" cell isn't the red car
+//        {
+//            // main game
+//        }
     }
 }
