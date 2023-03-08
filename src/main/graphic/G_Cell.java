@@ -40,14 +40,16 @@ public class G_Cell{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(cell.isOccupied()&& !window.isMovingState()){ //we take the vehicle
+                if(cell.isOccupied()&& !window.isMovingState()){ // before everything
                     window.setMovingState(true);
                     window.setMovingVehicle(cell.getVehicle());
-                } else if (window.isMovingState() && window.getMovingVehicle() != null) { //we put the vehicle
+                } else if (window.isMovingState()                                                                       // if we're in moving state(we clicked on a vehicle)
+                        &&window.getMovingVehicle() != null                                                             // if we're holding a vehicle
+                        ) {  // if the cell is empty or occup. by the vehicle we're holding
                     window.setMovingState(false);
                     window.getMovingVehicle().move(cell);
                     window.setMovingVehicle(null);
-                } else if (window.isMovingState() && window.getMovingVehicle() == null) { //we cancel the movement -- this state should never happen
+                } else if (window.isMovingState() && window.getMovingVehicle() == null) { //if the fist click was on an empty cell
                     window.setMovingState(false);
                 }
                 window.redraw();

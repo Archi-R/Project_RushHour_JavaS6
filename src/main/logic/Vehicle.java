@@ -136,14 +136,17 @@ public class Vehicle {
     public boolean checkMove(Cell destination) {
         Cell origin = this.getOrigin();
         int[] diff = {abs(origin.getX()-destination.getX()),abs(origin.getY()- destination.getY())};
-        if( diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.VERTICAL && !destination.isOccupied()){
-            return true;
-        }else if( diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.HORIZONTAL && !destination.isOccupied() ){
-            return true;
-        }else{
-            return false;
-        }
 
+        if( diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.VERTICAL){ // vertical
+            if(!destination.isOccupied()||destination.getVehicle()==this) { // if the dest is empty or occupied bi this
+                return true;                         /* I know this code can be reducted, but this is clearer */
+            }
+        }else if( diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.HORIZONTAL){ // horizontal
+            if(!destination.isOccupied()||destination.getVehicle()==this){ // if the dest is empty or occupied bi this
+                return true;
+            }
+        }
+        return false;
     }
 
 
