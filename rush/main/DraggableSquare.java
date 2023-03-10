@@ -9,23 +9,30 @@ import javax.swing.JPanel;
 
 public class DraggableSquare extends JPanel {
 
-    private int squareSize = 50;
-    private Point squareLocation = new Point(100, 100);
-    private Point mouseLocation = null;
+    private final int ROWS = 6;
+    private final int COLS = 6;
+    private final int SQUARE_SIZE = 50;
+    private Point squareLocation;
+    private Point mouseLocation;
 
     public DraggableSquare() {
         setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(400, 400));
+        setPreferredSize(new Dimension(COLS * SQUARE_SIZE, ROWS * SQUARE_SIZE));
+
+        squareLocation = new Point(SQUARE_SIZE, SQUARE_SIZE);
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                mouseLocation = e.getPoint();
+                if (isInsideSquare(e.getPoint())) {
+                    mouseLocation = e.getPoint();
+                }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 mouseLocation = null;
+                snapToGrid();
             }
         });
 
@@ -37,12 +44,19 @@ public class DraggableSquare extends JPanel {
                     int deltaY = e.getY() - mouseLocation.y;
                     int newX = squareLocation.x + deltaX;
                     int newY = squareLocation.y + deltaY;
-                    if (newX >= 0 && newX <= getWidth() - squareSize) {
-                        squareLocation.x = newX;
+                    int gridWidth = getWidth() - SQUARE_SIZE;
+                    int gridHeight = getHeight() - SQUARE_SIZE;
+                    if (newX < SQUARE_SIZE) {
+                        newX = SQUARE_SIZE;
+                    } else if (newX > gridWidth) {
+                        newX = gridWidth;
                     }
-                    if (newY >= 0 && newY <= getHeight() - squareSize) {
-                        squareLocation.y = newY;
+                    if (newY < SQUARE_SIZE) {
+                        newY = SQUARE_SIZE;
+                    } else if (newY > gridHeight) {
+                        newY = gridHeight;
                     }
+                    squareLocation.setLocation(newX, newY);
                     mouseLocation = e.getPoint();
                     repaint();
                 }
@@ -53,8 +67,27 @@ public class DraggableSquare extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                g.setColor((i + j) % 2 == 0 ? Color.WHITE : Color.LIGHT_GRAY);
+                g.fillRect(j * SQUARE_SIZE, i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+            }
+        }
         g.setColor(Color.RED);
-        g.fillRect(squareLocation.x, squareLocation.y, squareSize, squareSize);
+        g.fillRect(squareLocation.x, squareLocation.y, SQUARE_SIZE, SQUARE_SIZE);
+    }
+
+    private void snapToGrid() {
+        int x = squareLocation.x / SQUARE_SIZE * SQUARE_SIZE + SQUARE_SIZE;
+        int y = squareLocation.y / SQUARE_SIZE * SQUARE_SIZE + SQUARE_SIZE;
+        squareLocation.setLocation(x, y);
+        repaint();
+    }
+
+    private boolean isInsideSquare(Point point) {
+        return point.x >= squareLocation.x && point.x < squareLocation.x + SQUARE_SIZE
+                && point.y >= squareLocation.y && point.y < squareLocation.y + SQUARE_SIZE;
     }
 
     public static void main(String[] args) {
@@ -65,4 +98,3 @@ public class DraggableSquare extends JPanel {
         frame.setVisible(true);
     }
 }
-
