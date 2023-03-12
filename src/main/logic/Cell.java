@@ -2,7 +2,7 @@ package logic;
 
 /**
  * Class that represent the object cell.
- * @author Hypolite, Houda
+ * @author Hypolite LAGOUTTE (& Houda)
  * 
  * @inv 0 <= getX() <= Board.SIZE
  * @inv 0 <= getY() <= Board.SIZE
@@ -141,7 +141,6 @@ public class Cell {
                     diff ++;
                 }
             }
-            return diff;
         }
         return diff;
     }

@@ -62,8 +62,6 @@ public class Window implements MouseListener{
                     Cell c = board.getCell(j, i);
                     graphic_board[i][j] = new G_Cell(c,this);
                     frame.add(graphic_board[i][j].getSquare());
-
-
                 }
             }
         }
@@ -77,9 +75,6 @@ public class Window implements MouseListener{
                 graphic_board[i][j].redraw();
             }
         }
-        System.out.println("Moving state: "+this.isMovingState);
-        System.out.println(movingVehicle == null ? "no vehicle": "Color: "+this.movingVehicle.getNameColor());
-        System.out.println("diff value :" + diff);
         frame.repaint();
     }
 

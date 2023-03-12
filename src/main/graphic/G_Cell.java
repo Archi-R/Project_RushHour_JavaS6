@@ -42,21 +42,37 @@ public class G_Cell{
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(cell.isOccupied()&& !window.isMovingState()){ // before everything
+                    System.out.println("clicked on a vehicle");
                     window.setMovingState(true);
                     window.setMovingVehicle(cell.getVehicle());
                     window.setDiff(cell.originDiff());
-                } else if (window.isMovingState()                                                                       // if we're in moving state(we clicked on a vehicle)
-                        &&window.getMovingVehicle() != null                                                             // if we're holding a vehicle
+                } else if (window.isMovingState()               // if we're in moving state(we clicked on a vehicle)
+                        && window.getMovingVehicle() != null     // if we're holding a vehicle
                         ) {  // if the cell is empty or occup. by the vehicle we're holding
+                    System.out.println("V Holded, clicked on an empty cell");
                     window.setMovingState(false);
                     if(window.getMovingVehicle().getDirection() == Direction.HORIZONTAL) {
-                        window.getMovingVehicle().move(cell.getBoard().getCell(cell.getX() - window.getDiff(), cell.getY()));
+                        int x = cell.getX() - window.getDiff();
+                        int y = cell.getY();
+                        Cell c = cell.getBoard().getCell(x, y);
+
+                        window.getMovingVehicle().move(c);
+
                     }else if(window.getMovingVehicle().getDirection() == Direction.VERTICAL){
-                        window.getMovingVehicle().move(cell.getBoard().getCell(cell.getX(), cell.getY()- window.getDiff()));
+                        int x = cell.getX();
+                        int y = cell.getY() - window.getDiff();
+                        Cell c = cell.getBoard().getCell(x, y);
+
+                        window.getMovingVehicle().move(c);
                     }
                     window.setMovingVehicle(null);
+                    window.setMovingState(false);
                     window.setDiff(0);
-                } else if (window.isMovingState() && window.getMovingVehicle() == null) { //if the fist click was on an empty cell
+                } else if (!window.isMovingState() && window.getMovingVehicle() == null) { //if the fist click was on an empty cell
+                    System.out.println("clicked on an empty cell");
+                    window.setMovingState(false);
+                } else {
+                    System.out.println("else");
                     window.setMovingState(false);
                 }
                 window.redraw();

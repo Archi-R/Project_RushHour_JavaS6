@@ -6,7 +6,7 @@ import static java.lang.Math.abs;
 
 /**
  * Class that represent a vehicle.
- * @author Ronan PEYREL
+ * @author Ronan PEYREL & Hypolite LAGOUTTE
  */
 public class Vehicle {
     /**
@@ -138,13 +138,25 @@ public class Vehicle {
         int[] diff = {abs(origin.getX()-destination.getX()),abs(origin.getY()- destination.getY())};
 
         if( diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.VERTICAL){ // vertical
-            if(!destination.isOccupied()||destination.getVehicle()==this) { // if the dest is empty or occupied bi this
-                return true;                         /* I know this code can be reducted, but this is clearer */
+            for(int i=0;i<this.getLength();i++){
+                if(destination.getBoard().getCell(destination.getX(),destination.getY()+i).isOccupied()){ // if the dest is empty or occupied by this
+                    return false;                         /* I know this code can be reduced, but this is clearer */
+                }else{
+                    System.out.println("VERTIVAL destination is occupied");
+                }
             }
+
         }else if( diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.HORIZONTAL){ // horizontal
-            if(!destination.isOccupied()||destination.getVehicle()==this){ // if the dest is empty or occupied bi this
-                return true;
+            for(int i=0;i<this.getLength();i++){
+                if(destination.getBoard().getCell(destination.getX()+i,destination.getY()).isOccupied()){ // if the dest is empty or occupied by this
+                    return false;                         /* I know this code can be reduced, but this is clearer */
+                }else{
+                    System.out.println("HORIZONTAL destination is occupied");
+                }
             }
+        }
+        else{
+            System.out.println("WRONG DIR");
         }
         return false;
     }
@@ -154,7 +166,7 @@ public class Vehicle {
      * Moves the car on the selected case, it must check if the movement is legal
      * @param c
      */
-    public void move(Cell c){
+    public void  move(Cell c){
 
         if(!checkMove(c)){
             // don't move
