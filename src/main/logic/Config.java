@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 /**
  * Class that represent the different configuration.
- * @author Hypolite
+ * @author Hypolite & Ronan PEYREL
  * @version 1.0
  */
 public class Config {

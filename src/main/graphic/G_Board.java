@@ -10,7 +10,7 @@ import logic.*;
 /**
     * Class that represents the board of the game
     * It contains the set of G_cell and the logic board
-    * @author: Ronan PEYREL
+    * @author: Hypolite LAGOUTTE & Ronan PEYREL
  */
 public class G_Board implements MouseListener{
 

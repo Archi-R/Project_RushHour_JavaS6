@@ -1,7 +1,7 @@
 package logic;
 
 /**
- * @autor Hypolite, Houda
+ * @autor (Houda), Hypolite LAGOUTTE, (Ronan PEYREL)
  */
 public enum Difficulty {
 

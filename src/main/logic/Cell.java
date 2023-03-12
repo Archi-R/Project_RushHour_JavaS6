@@ -113,35 +113,4 @@ public class Cell {
     public Board getBoard() {
     	return board;
     }
-
-    /**
-     * Give the difference between the cell and the origin cell of the car which is on this cell.
-     *
-     * @return the difference of position between the cell and origin, depending on the car orientation.
-     */
-    public int originDiff(){
-        NameColor nc = this.vehicle.getNameColor(); // color
-        Direction dir = this.vehicle.getDirection(); // direction of the car
-        int x = this.getX(); // x position of the cell
-        int y = this.getY(); // y position of the cell
-        int diff = 0; // result
-        if(dir == Direction.HORIZONTAL){
-            for(int i=1;i<2;i++){
-                // check the cell (x-1,y) to see if it is the same color
-                if(this.getBoard().getCell(x-i,y).getVehicle().getNameColor() == nc){
-                    // if it is, then it is the origin
-                    diff ++;
-                }
-            }
-            return diff;
-        }else if(dir == Direction.VERTICAL){
-            for(int i=1;i<2;i++){
-                // check the cell (x;y-1) to see if it is the same color
-                if(this.getBoard().getCell(x,y-i).getVehicle().getNameColor() == nc){
-                    diff ++;
-                }
-            }
-        }
-        return diff;
-    }
 }
