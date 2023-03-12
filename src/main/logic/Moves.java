@@ -1,7 +1,6 @@
 package logic;
 
 
-import static java.lang.Math.abs;
 
 /**
  * describe the movement that can be made by a car to move
