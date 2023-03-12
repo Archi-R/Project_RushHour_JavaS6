@@ -12,13 +12,13 @@ import java.awt.event.MouseListener;
 public class G_Cell{
     private Cell cell;
     private JPanel square;
-    private Window window;
+    private G_Board gBoard;
 
 
-    public G_Cell(Cell c, Window window){
+    public G_Cell(Cell c, G_Board gBoard){
         this.cell = c;
         this.square = new JPanel();
-        this.window = window;
+        this.gBoard = gBoard;
 
         //always set the color as grey
         square.setBackground(new java.awt.Color(80, 80, 80));
@@ -41,45 +41,45 @@ public class G_Cell{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(cell.isOccupied()&& !window.isMovingState()){ // before everything
+                if(cell.isOccupied()&& !gBoard.isMovingState()){ // before everything
                     System.out.println("clicked on a vehicle");
-                    window.setMovingState(true);
-                    window.setMovingVehicle(cell.getVehicle());
-                    window.setDiff(cell.originDiff());
-                } else if (window.isMovingState()               // if we're in moving state(we clicked on a vehicle)
-                        && window.getMovingVehicle() != null     // if we're holding a vehicle
+                    gBoard.setMovingState(true);
+                    gBoard.setMovingVehicle(cell.getVehicle());
+                    gBoard.setDiff(cell.originDiff());
+                } else if (gBoard.isMovingState()               // if we're in moving state(we clicked on a vehicle)
+                        && gBoard.getMovingVehicle() != null     // if we're holding a vehicle
                         ) {  // if the cell is empty or occup. by the vehicle we're holding
                     System.out.println("V Holded, clicked on an empty cell");
-                    window.setMovingState(false);
-                    if(window.getMovingVehicle().getDirection() == Direction.HORIZONTAL) {
+                    gBoard.setMovingState(false);
+                    if(gBoard.getMovingVehicle().getDirection() == Direction.HORIZONTAL) {
                         System.out.println("horiz");
-                        int x = cell.getX() - window.getDiff();
+                        int x = cell.getX() - gBoard.getDiff();
                         int y = cell.getY();
                         Cell c = cell.getBoard().getCell(x, y);
 
-                        window.getMovingVehicle().move(c);
+                        gBoard.getMovingVehicle().move(c);
 
-                    }else if(window.getMovingVehicle().getDirection() == Direction.VERTICAL){
+                    }else if(gBoard.getMovingVehicle().getDirection() == Direction.VERTICAL){
                         System.out.println("vert");
                         int x = cell.getX();
-                        int y = cell.getY() - window.getDiff();
+                        int y = cell.getY() - gBoard.getDiff();
                         Cell c = cell.getBoard().getCell(x, y);
 
-                        window.getMovingVehicle().move(c);
+                        gBoard.getMovingVehicle().move(c);
                     }else{
                         System.out.println("Error: Direction not found");
                     }
-                    window.setMovingVehicle(null);
-                    window.setMovingState(false);
-                    window.setDiff(0);
-                } else if (!window.isMovingState() && window.getMovingVehicle() == null) { //if the fist click was on an empty cell
+                    gBoard.setMovingVehicle(null);
+                    gBoard.setMovingState(false);
+                    gBoard.setDiff(0);
+                } else if (!gBoard.isMovingState() && gBoard.getMovingVehicle() == null) { //if the fist click was on an empty cell
                     System.out.println("clicked on an empty cell");
-                    window.setMovingState(false);
+                    gBoard.setMovingState(false);
                 } else {
                     System.out.println("else");
-                    window.setMovingState(false);
+                    gBoard.setMovingState(false);
                 }
-                window.redraw();
+                gBoard.redraw();
             }
         });
 

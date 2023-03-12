@@ -134,41 +134,41 @@ public class Vehicle {
      * @return
      */
     public boolean checkMove(Cell destination) {
+        boolean res = true;
         Cell origin = this.getOrigin();
         int[] diff = {abs(origin.getX()-destination.getX()),abs(origin.getY()- destination.getY())};
 
         if(diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.VERTICAL){ // vertical
             for(int i=0;i<=this.getLength();i++){
                 Cell dest = destination.getBoard().getCell(destination.getX(),destination.getY()+i);
-                if(dest.isOccupied() && destination.getVehicle()!=this){ // if the dest is empty or occupied by this
+                if(dest.isOccupied() && destination.getVehicle()!=this){ // if the dest is occupied, and it's not this vehicle
                     System.out.println("Is occ:"+dest.isOccupied());
                     System.out.println("save V:"+(destination.getVehicle()==this));
                     System.out.println("VERTICAL destination is occupied");
-                    return false;                         /* I know this code can be reduced, but this is clearer */
+                    res = false;                         /* I know this code can be reduced, but this is clearer */
                 }else{
                     System.out.println("dest: "+destination.getVehicle()+" |this: "+this+" |res: "+(destination.getVehicle()==this));
-                    return true;
                 }
             }
 
         }else if(diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.HORIZONTAL){ // horizontal
             for(int i=0;i<=this.getLength();i++){
                 Cell dest = destination.getBoard().getCell(destination.getX()+i,destination.getY());
-                if(dest.isOccupied() && destination.getVehicle()!=this){ // if the dest is empty or occupied by this
+                if(dest.isOccupied() && destination.getVehicle()!=this){ // if the dest is occupied, and it's not this vehicle
                     System.out.println("Is occ:"+dest.isOccupied());
                     System.out.println("save V:"+(destination.getVehicle()==this));
                     System.out.println("HORIZONTAL destination is occupied");
-                    return false;                         /* I know this code can be reduced, but this is clearer */
+                    res = false;                         /* I know this code can be reduced, but this is clearer */
                 }else{
                     System.out.println("dest: "+destination.getVehicle()+" |this: "+this+" |res: "+(destination.getVehicle()==this));
-                    return true;
                 }
             }
         }
         else{
+            res = false;
             System.out.println("WRONG DIR");
         }
-        return false;
+        return res;
     }
 
 

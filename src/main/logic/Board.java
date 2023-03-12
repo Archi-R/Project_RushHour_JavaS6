@@ -13,7 +13,7 @@ import java.util.Map;
 public class Board {
 
     /**
-     * The board size, initialized to 6.
+     * The board size
      */
     private final int boardSize = 6;
 

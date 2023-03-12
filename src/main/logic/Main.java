@@ -1,10 +1,8 @@
 package logic;
 
-import graphic.Window;
+import graphic.G_Board;
 
-import javax.lang.model.element.Name;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -25,7 +23,7 @@ public class Main {
         Board board = new Board(Difficulty.beginner, new Config(Difficulty.beginner, 1));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Window w = new Window(board);
+                G_Board w = new G_Board(board);
 
             }
         });
