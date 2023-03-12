@@ -2,4 +2,5 @@
 
 ### Progress:
 
-- experimenting with JPanel and mouse event 
+-  JPanel and mouse event 
+-  Figure sticks to board (still buggy but kinda works)
