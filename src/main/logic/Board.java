@@ -131,13 +131,13 @@ public class Board {
 
         boolean isok = this.isWayFree(v, destination) && this.isOnBoard(v,destination);
         boolean isonTrack = this.isOnTrack(v,destination); //this one's special, bc it just cannot move off the track
-        if (isok) {
+        if (isok && isonTrack){
             // the way is free, so we move the vehicle to the destination
             v.move(destination);
         }else if(!isonTrack){
             //just replace the vehicle back on the board
             v.setOccupiedCells();
-        }else{
+        }else if (!isok){
 
             // there is a problem, so we try to move the vehicle to the previous cell
 
@@ -266,14 +266,28 @@ public class Board {
     private boolean isOnTrack(Vehicle v, Cell destination) {
         boolean isok = false;
         Cell origin = v.getOrigin();
+        int diff_x = abs(origin.getX() - destination.getX());
+        int diff_y = abs(origin.getY() - destination.getY());
         int[] diff = {abs(origin.getX() - destination.getX()), abs(origin.getY() - destination.getY())};
 
-        if (diff[0] == 0 && diff[1] != 0 && v.getDirection() == Direction.VERTICAL) { // vertical
+        if (v.getDirection() == Direction.VERTICAL && diff_x == 0) { // were moving vertically, on a column
             isok = true;
-        } else if (diff[0] != 0 && diff[1] == 0 && v.getDirection() == Direction.HORIZONTAL) { // horizontal
+        } else if (v.getDirection() == Direction.HORIZONTAL && diff_y == 0) { // were moving horizontally, on a row
             isok = true;
         } /* I know this can be reducted, but I prefer to keep it like this for the readability */
+        else{
+            isok = false;
+            System.out.println("Error : the vehicle is not on the right track");
+        }
         return isok;
+    }
+
+    /**
+     * Method to check if the player has won
+     * @return : boolean , true if the player has won, false otherwise
+     */
+    public boolean hasWon() {
+        return this.getCell(this.boardSize - 1, 2).getVehicle().getNameColor() == NameColor.X;
     }
 }
 
