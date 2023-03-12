@@ -52,6 +52,7 @@ public class G_Cell{
                     System.out.println("V Holded, clicked on an empty cell");
                     window.setMovingState(false);
                     if(window.getMovingVehicle().getDirection() == Direction.HORIZONTAL) {
+                        System.out.println("horiz");
                         int x = cell.getX() - window.getDiff();
                         int y = cell.getY();
                         Cell c = cell.getBoard().getCell(x, y);
@@ -59,11 +60,14 @@ public class G_Cell{
                         window.getMovingVehicle().move(c);
 
                     }else if(window.getMovingVehicle().getDirection() == Direction.VERTICAL){
+                        System.out.println("vert");
                         int x = cell.getX();
                         int y = cell.getY() - window.getDiff();
                         Cell c = cell.getBoard().getCell(x, y);
 
                         window.getMovingVehicle().move(c);
+                    }else{
+                        System.out.println("Error: Direction not found");
                     }
                     window.setMovingVehicle(null);
                     window.setMovingState(false);
