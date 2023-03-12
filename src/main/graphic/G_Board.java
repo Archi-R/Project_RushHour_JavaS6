@@ -108,13 +108,6 @@ public class G_Board implements MouseListener{
         // TODO Auto-generated method stub
     }
 
-    public void setDiff(int originDiff) {
-        this.diff = originDiff;
-    }
-
-    public int getDiff() { return this.diff; }
-
-
     public void sortingHat(G_Cell g_c) {
         Cell c = g_c.getCell();
         if(this.originG_Cell == null && c.isOccupied()) { //if we don't have an origin

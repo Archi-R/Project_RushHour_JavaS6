@@ -25,12 +25,6 @@ public class Config {
      * verticalement à la position (0,3).
      */
     private String[] config;
-
-    /**
-     * Difficulty of the configuration.
-     */
-    private Difficulty difficulty;
-
     // methods
 
     /**
@@ -76,26 +70,6 @@ public class Config {
         FileReader fis1 = new FileReader(file);
         String[] array= file.readLine(level,nbLine,fis1).split(" ");
         return array;
-    }
-
-
-    /**
-     * Set the level number picked from the configuration file
-     * @param l : level wanted
-     */
-    public void setLevel(int l){ this.level =l; }
-
-
-    /**
-     * return the level of the current configuration
-     * @return
-     */
-    public int getLevel() { return level; }
-
-    /**
-     * set the configuration
-     */
-    public void setConfig() { // set config
     }
 
     /**

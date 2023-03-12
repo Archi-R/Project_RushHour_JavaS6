@@ -27,11 +27,5 @@ public class Main {
 
             }
         });
-
-
-//        while(!(board.getCell(5, 2).getVehicle().getNameColor() == NameColor.X;)) //while the car on the "win" cell isn't the red car
-//        {
-//            // main game
-//        }
     }
 }

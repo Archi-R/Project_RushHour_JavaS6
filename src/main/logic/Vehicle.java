@@ -127,51 +127,6 @@ public class Vehicle {
             }
         }
     }
-
-    /**
-     * uklv;jebfvlkbn vl;kjsn vl ;j,hfnb ljz,;j,bn pvkzje;l,nfc viajkq,nv ajq /// flemme
-     * @param destination
-     * @return
-     */
-    public boolean checkMove(Cell destination) {
-        boolean res = true;
-        Cell origin = this.getOrigin();
-        int[] diff = {abs(origin.getX()-destination.getX()),abs(origin.getY()- destination.getY())};
-
-        if(diff[0] == 0 && diff[1] != 0 && this.getDirection() == Direction.VERTICAL){ // vertical
-            for(int i=0;i<=this.getLength();i++){
-                Cell dest = destination.getBoard().getCell(destination.getX(),destination.getY()+i);
-                if(dest.isOccupied() && destination.getVehicle()!=this){ // if the dest is occupied, and it's not this vehicle
-                    System.out.println("Is occ:"+dest.isOccupied());
-                    System.out.println("save V:"+(destination.getVehicle()==this));
-                    System.out.println("VERTICAL destination is occupied");
-                    res = false;                         /* I know this code can be reduced, but this is clearer */
-                }else{
-                    System.out.println("dest: "+destination.getVehicle()+" |this: "+this+" |res: "+(destination.getVehicle()==this));
-                }
-            }
-
-        }else if(diff[0] != 0 && diff[1] == 0 && this.getDirection() == Direction.HORIZONTAL){ // horizontal
-            for(int i=0;i<=this.getLength();i++){
-                Cell dest = destination.getBoard().getCell(destination.getX()+i,destination.getY());
-                if(dest.isOccupied() && destination.getVehicle()!=this){ // if the dest is occupied, and it's not this vehicle
-                    System.out.println("Is occ:"+dest.isOccupied());
-                    System.out.println("save V:"+(destination.getVehicle()==this));
-                    System.out.println("HORIZONTAL destination is occupied");
-                    res = false;                         /* I know this code can be reduced, but this is clearer */
-                }else{
-                    System.out.println("dest: "+destination.getVehicle()+" |this: "+this+" |res: "+(destination.getVehicle()==this));
-                }
-            }
-        }
-        else{
-            res = false;
-            System.out.println("WRONG DIR");
-        }
-        return res;
-    }
-
-
     /**
      * Moves the car on the selected case, it must check if the movement is legal
      * @param destination : Cell where the car will be moved
@@ -182,19 +137,6 @@ public class Vehicle {
         this.setOrigin(destination);
         //placing the vehicle on the board (therefore, on the cells)
         this.setOccupiedCells();
-
-        /* old move
-        if(!checkMove(c)){
-            // don't move
-            System.out.println("Can't move");
-        }else{
-            this.removeOccupiedCells();
-            this.setOrigin(c);
-            this.setOccupiedCells();
-
-            c.getBoard().placeVehicle(this,c);
-        }
-        */
     }
 
 

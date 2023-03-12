@@ -51,16 +51,8 @@ public class G_Cell{
         return cell;
     }
 
-    public void setCell(Cell cell){
-        this.cell = cell;
-    }
-
     public JPanel getSquare(){
         return square;
-    }
-
-    public void setSquare(JPanel square){
-        this.square = square;
     }
 
     public void redraw(){
