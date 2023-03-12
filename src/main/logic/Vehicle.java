@@ -2,8 +2,6 @@ package logic;
 
 import java.awt.Color;
 
-import static java.lang.Math.abs;
-
 /**
  * Class that represent a vehicle.
  * @author Ronan PEYREL & Hypolite LAGOUTTE

@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,12 +31,10 @@ public class Config {
     /**
      * create a configuration
       * @param difficulty : the wanted difficulty
-     * @param level : the level in the difficulty
      * @throws IOException
      */
-    public Config(Difficulty difficulty,int level) throws IOException {
-        this.level = level;
-        this.config =  parserConfig(difficulty,level);
+    public Config(Difficulty difficulty) throws IOException {
+        this.config =  parserConfig(difficulty);
     }
 
 
@@ -43,32 +42,34 @@ public class Config {
      * Go take the level line in the difficulty cfg file and extract the
      * positions of the cars for the current game.
      * @param difficulty : the wanted difficulty
-     * @param level : the wanted level
      * @return : an array containing all the cars position of the config
      * @throws IOException
      */
-    public String[] parserConfig(Difficulty difficulty, int level) throws IOException {
-        /* -- debut aller chercher le fichier
-        //FileDialog fd = new FileDialog(new Frame(), "Choose a file", FileDialog.LOAD);
-        //fd.setDirectory(System.getProperty("user.dir"));
-        //fd.setFile("*.cfg");
-        //fd.setVisible(true);
+    public String[] parserConfig(Difficulty difficulty) throws IOException {
+        // -- debut aller chercher le fichier
+        FileDialog fd = new FileDialog(new Frame(), "Choose a file", FileDialog.LOAD);
+        fd.setDirectory(System.getProperty("user.dir"));
+        fd.setFile("*.cfg");
+        fd.setVisible(true);
 
-        //String filename = fd.getDirectory()+fd.getFile();
-        //if (filename == null)
-        //    System.out.println("You cancelled the choice");
-        //else
-        //    System.out.println("You chose " + filename);
-        // -- fin aller chercher le fichier
-        */
+        String filename = fd.getDirectory() + fd.getFile();
+        file file = null;
+        if (filename == null) {
+            System.out.println("You cancelled the choice");
+        } else {
+            System.out.println("You chose " + filename);
+            file = new file(filename);
+        }
+        //fin aller chercher le fichier
 
-        //ile file = new file(("C:\\Users\\lagou\\Documents\\Cours\\POO\\projet\\resources\\"+String.valueOf(difficulty)+".cfg"));
-        file file = new file(("F:\\OneDrive - Université Bretagne Sud\\POO\\Project RushHour\\Project RushHour\\Ressources\\"+String.valueOf(difficulty)+".cfg"));
         FileReader fis = new FileReader(file);
         int nbLine = file.findLine(fis);
+        System.out.println("What level do you want to play ? (1-"+nbLine+")");
+        Scanner sc = new Scanner(System.in);
+        int level = Integer.parseInt(sc.nextLine());
 
         FileReader fis1 = new FileReader(file);
-        String[] array= file.readLine(level,nbLine,fis1).split(" ");
+        String[] array = file.readLine(level, nbLine, fis1).split(" ");
         return array;
     }
 
