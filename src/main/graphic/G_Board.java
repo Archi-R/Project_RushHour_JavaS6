@@ -21,6 +21,9 @@ public class G_Board implements MouseListener{
 
     private boolean isMovingState = false;
 
+    private G_Cell originG_Cell = null;
+    private G_Cell destinationG_Cell = null;
+
     public Vehicle getMovingVehicle() {
         return movingVehicle;
     }
@@ -111,6 +114,71 @@ public class G_Board implements MouseListener{
 
     public int getDiff() { return this.diff; }
 
+
+    public void sortingHat(G_Cell g_c) {
+        Cell c = g_c.getCell();
+        if(this.originG_Cell == null && c.isOccupied()) { //if we don't have an origin
+            System.out.println("clicked on an occupied cell");
+            this.originG_Cell = g_c;                //we set the origin
+            this.movingVehicle = c.getVehicle();   //we set the vehicle we're moving
+            this.destinationG_Cell = null;        //we reset the destination
+        } else if (this.destinationG_Cell == null) { //if we have an origin but no destination
+            System.out.println("2nd click");
+            this.destinationG_Cell = g_c;                                                    //we set the destination
+            this.board.placeVehicle(this.movingVehicle, this.destinationG_Cell.getCell());  //we place the vehicle
+            this.originG_Cell = null;                                                      //we reset the origin & destination
+            this.destinationG_Cell = null;
+        } else {                                //if we have an origin and a destination, this is an error, we reset
+            System.out.println("WTF ????????????");
+            this.originG_Cell = null;
+            this.destinationG_Cell = null;
+        }
+        this.redraw();
+    }
     public void moveVehicle(Vehicle v, G_Cell g_c) {
+
+        // TODO on abandonne ça ?
+        Cell cell = g_c.getCell();
+
+
+        if(cell.isOccupied()&& !this.isMovingState()){ // before everything
+            System.out.println("clicked on a vehicle");
+            this.setMovingState(true);
+            this.setMovingVehicle(cell.getVehicle());
+            this.setDiff(cell.originDiff());
+        } else if (this.isMovingState()               // if we're in moving state(we clicked on a vehicle)
+                && this.getMovingVehicle() != null     // if we're holding a vehicle
+        ) {  // if the cell is empty or occup. by the vehicle we're holding
+            System.out.println("V Holded, clicked on an empty cell");
+            this.setMovingState(false);
+            if(this.getMovingVehicle().getDirection() == Direction.HORIZONTAL) {
+                System.out.println("horiz");
+                int x = cell.getX() - this.getDiff();
+                int y = cell.getY();
+                Cell c = cell.getBoard().getCell(x, y);
+
+                this.getMovingVehicle().move(c);
+
+            }else if(this.getMovingVehicle().getDirection() == Direction.VERTICAL){
+                System.out.println("vert");
+                int x = cell.getX();
+                int y = cell.getY() - this.getDiff();
+                Cell c = cell.getBoard().getCell(x, y);
+
+                this.getMovingVehicle().move(c);
+            }else{
+                System.out.println("Error: Direction not found");
+            }
+            this.setMovingVehicle(null);
+            this.setMovingState(false);
+            this.setDiff(0);
+        } else if (!this.isMovingState() && this.getMovingVehicle() == null) { //if the fist click was on an empty cell
+            System.out.println("clicked on an empty cell");
+            this.setMovingState(false);
+        } else {
+            System.out.println("else");
+            this.setMovingState(false);
+        }
+        this.redraw();
     }
 }

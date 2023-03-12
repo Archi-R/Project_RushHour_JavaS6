@@ -116,7 +116,7 @@ public class Vehicle {
     /**
      * methods that set as not occupied the cells the vehicle is on.
      */
-    private void removeOccupiedCells(){
+    public void removeOccupiedCells(){
         if (direction == Direction.HORIZONTAL) {
             for (int i = 0; i < this.getLength(); i++) {
                 origin.getBoard().getCell(origin.getX() + i, origin.getY()).setVehicle(null);
@@ -174,10 +174,16 @@ public class Vehicle {
 
     /**
      * Moves the car on the selected case, it must check if the movement is legal
-     * @param c
+     * @param destination : Cell where the car will be moved
      */
-    public void move(Cell c){
+    public void move(Cell destination){
 
+        //placing the origin of the vehicle
+        this.setOrigin(destination);
+        //placing the vehicle on the board (therefore, on the cells)
+        this.setOccupiedCells();
+
+        /* old move
         if(!checkMove(c)){
             // don't move
             System.out.println("Can't move");
@@ -186,8 +192,9 @@ public class Vehicle {
             this.setOrigin(c);
             this.setOccupiedCells();
 
-            c.getBoard().placeVehicle(this, c.getX(), c.getY());
+            c.getBoard().placeVehicle(this,c);
         }
+        */
     }
 
 

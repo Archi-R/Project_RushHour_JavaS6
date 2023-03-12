@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Math.abs;
+
 /**
  * Class representing the board object and it's function.
  * @author Hypolite LAGOUTTE & Ronan PEYREL
@@ -116,78 +118,163 @@ public class Board {
             Direction dir = Direction.todirect(conf[i].substring(1,2));
 
             Vehicle v = new Vehicle(name,getCell(x,y),dir);
-            this.placeVehicle(v,x,y);
+            Cell c = getCell(x,y);
+            this.placeVehicle(v,c);
         }
     }
 
-    public void placeVehicle(Vehicle v, int x, int y) {
-        boolean isok = true;
-        if (v.getDirection() == Direction.HORIZONTAL) {
-            //board limit
-            if (x + v.getLength() > this.boardSize) { // if the vehicle is out of the board
-                isok = false;
-                placeVehicle(v,x-1,y); // modifying the destination x to place the vehicle fully on the board
-            } else if (x < 0) {
-                isok = false;
-                placeVehicle(v,x+1,y); // modifying the destination x to place the vehicle fully on the board
-            }
-            //collision
-            if(v.getOrigin().getX()>x) { // if the vehicle is moving to the left
-                for (int i = 0; i < v.getLength(); i++) {
-                    if (getCell(x + i, y).isOccupied()) {
-                        isok = false;
-                        System.out.println("collision");
-                        placeVehicle(v, x - 1, y);
-                    }
-                }
-            }
-            else if(v.getOrigin().getX()<x) { // if the vehicle is moving to the right
-                for (int i = 0; i < v.getLength(); i++) {
-                    if (getCell(x + i, y).isOccupied()) {
-                        isok = false;
-                        System.out.println("collision");
-                        placeVehicle(v, x + 1, y);
-                    }
-                }
-            }
-        } else {
-            //board limit
-            if (y + v.getLength() > this.boardSize) { // if the vehicle is out of the board
-                isok = false;
-                placeVehicle(v,x,y-1); // modifying the destination y to place the vehicle fully on the board
-            } else if (y < 0) {
-                isok = false;
-                placeVehicle(v,x,y+1); // modifying the destination y to place the vehicle fully on the board
-            }
-            //collision
-            if(v.getOrigin().getY()>y) { // if the vehicle is moving up
-                for (int i = 0; i < v.getLength(); i++) {
-                    if (getCell(x, y + i).isOccupied()) {
-                        isok = false;
-                        System.out.println("collision");
-                        placeVehicle(v, x, y - 1);
-                    }
-                }
-            }
-            else if(v.getOrigin().getY()<y) { // if the vehicle is moving down
-                for (int i = 0; i < v.getLength(); i++) {
-                    if (getCell(x, y + i).isOccupied()) {
-                        isok = false;
-                        System.out.println("collision");
-                        placeVehicle(v, x, y + 1);
-                    }
-                }
-            }
-        }
+    public void placeVehicle(Vehicle v, Cell destination) {
+        //temporarily removing the vehicle off the board
+        // in order to check if the destination is free
+        // without considering the vehicle itself
+        v.removeOccupiedCells(); //satisfying the precondition of isWayFree and isOnBoard.
 
+        boolean isok = this.isWayFree(v, destination) && this.isOnBoard(v,destination);
+        boolean isonTrack = this.isOnTrack(v,destination); //this one's special, bc it just cannot move off the track
         if (isok) {
-            //placing the origin of the vehicle
-            v.setOrigin(getCell(x, y));
-            //placing the vehicle on the board (therefore, on the cells)
+            // the way is free, so we move the vehicle to the destination
+            v.move(destination);
+        }else if(!isonTrack){
+            //just replace the vehicle back on the board
             v.setOccupiedCells();
+        }else{
+
+            // there is a problem, so we try to move the vehicle to the previous cell
+
+            if (v.getDirection() == Direction.HORIZONTAL) { // if the vehicle is horizontal
+                if (v.getOrigin().getX() > destination.getX()) { // if the vehicle is moving left
+                    if (!isok) {
+                        Cell previonsCell = this.getCell(destination.getX()+1, destination.getY()); // we try to the cell on the right
+                        this.placeVehicle(v, previonsCell);
+                    }
+                } else if (v.getOrigin().getX() < destination.getX()) { // if the vehicle is moving right
+                    if (!isok) {
+                        Cell previonsCell = this.getCell(destination.getX()-1, destination.getY()); // we try to the cell on the left
+                        this.placeVehicle(v, previonsCell);
+                    }
+                } else {
+                    System.out.println("There is a fucking problem WTF");
+                    System.out.println("Error : the vehicle is already on this cell");
+                }
+            } else { // if the vehicle is vertical
+                if (v.getOrigin().getY() > destination.getY()) { // if the vehicle is moving up
+                    if (!isok) {
+                        Cell previonsCell = this.getCell(destination.getX(), destination.getY()+1); // we try to the cell on the bottom
+                        this.placeVehicle(v, previonsCell);
+                    }
+                } else if (v.getOrigin().getY() < destination.getY()) { // if the vehicle is moving down
+                    if(!isok) {
+                        Cell previonsCell = this.getCell(destination.getX(), destination.getY()-1); // we try to the cell on the top
+                        this.placeVehicle(v, previonsCell);
+                    }
+                } else {
+                    System.out.println("There is a fucking problem WTF");
+                    System.out.println("Error : the vehicle is already on this cell");
+                }
+            }
         }
     }
 
+    /**
+     * Method to check if the way is free for the vehicle to move
+     * @pre : the board doesn't contain this vehicle
+     * @pre : the destination is the where the origin of the vehicle will be after the move
+     * @param v : Vehicle , the vehicle to move
+     * @param destination : Cell , the destination of the vehicle
+     */
+    private boolean isWayFree(Vehicle v, Cell destination){
+
+        int dest_x = destination.getX();
+        int dest_y = destination.getY();
+        boolean isok = true;
+        if (v.getDirection() == Direction.HORIZONTAL) { // if the vehicle is horizontal
+            if(v.getOrigin().getX()>dest_x) { // if the vehicle is moving to the left
+                for(int ix = dest_x; ix < v.getOrigin().getX(); ix++) { // all the cells FROM DESTINATION TO ORIGIN
+                    for (int i = 0; i < v.getLength(); i++) { // all the cells occupied by the vehicle
+                        if (getCell(ix+i, dest_y).isOccupied()) {
+                            isok = false;
+                        }
+                    }
+                }
+            }
+            else if(v.getOrigin().getX()<dest_x) { // if the vehicle is moving to the right
+                for(int ix = v.getOrigin().getX(); ix <= dest_x; ix++) { // all the cells FROM ORIGIN TO DESTINATION
+                    for (int i = 0; i < v.getLength(); i++) { // all the cells occupied by the vehicle
+                        if (getCell(ix+i, dest_y).isOccupied()) {
+                            isok = false;
+                        }
+                    }
+                }
+            }
+        } else { // if the vehicle is vertical
+            if(v.getOrigin().getY()>dest_y) { // if the vehicle is moving up
+                for(int iy = dest_y; iy < v.getOrigin().getY(); iy++) { // all the cells FROM DESTINATION TO ORIGIN
+                    for (int i = 0; i < v.getLength(); i++) { // all the cells occupied by the vehicle
+                        if (getCell(dest_x, iy+i).isOccupied()) {
+                            isok = false;
+                        }
+                    }
+                }
+            }
+            else if(v.getOrigin().getY()<dest_y) { // if the vehicle is moving down
+                for(int iy = v.getOrigin().getY(); iy <= dest_y; iy++) { // all the cells FROM ORIGIN TO DESTINATION
+                    for (int i = 0; i < v.getLength(); i++) { // all the cells occupied by the vehicle
+                        if (getCell(dest_x, iy+i).isOccupied()) {
+                            isok = false;
+                        }
+                    }
+                }
+            }
+        }
+        return isok;
+    }
+
+    /**
+     * Method to check if the vehicle will stay on the board
+     * @pre : the board doesn't contain this vehicle
+     * @pre : the destination is the where the origin of the vehicle will be after the move
+     * @param v : Vehicle , the vehicle to move
+     * @param destination : Cell , the destination of the vehicle
+     */
+    private boolean isOnBoard(Vehicle v, Cell destination) {
+        int dest_x = destination.getX();
+        int dest_y = destination.getY();
+        boolean isok = true;
+        if (v.getDirection() == Direction.HORIZONTAL) { // if the vehicle is horizontal
+            if (dest_x + v.getLength() > this.boardSize) { // if the front of the vehicle is out of the board on the right
+                isok = false;
+            } else if (dest_x < 0) { // if the back of the vehicle is out of the board on the left
+                isok = false;
+            }
+        } else { // if the vehicle is vertical
+            if (dest_y + v.getLength() > this.boardSize) { // if the vehicle is out of the board on the bottom
+                isok = false;
+            } else if (dest_y < 0) { // if the back of the vehicle is out of the board on the top
+                isok = false;
+            }
+        }
+        return isok;
+    }
+
+    /**
+     * Method to check if the vehicle is moving the same way as its direction
+     * @pre : the board doesn't contain this vehicle
+     * @pre : the destination is the where the origin of the vehicle will be after the move
+     * @param v : Vehicle , the vehicle to move
+     * @param destination : Cell , the destination of the vehicle
+     */
+    private boolean isOnTrack(Vehicle v, Cell destination) {
+        boolean isok = false;
+        Cell origin = v.getOrigin();
+        int[] diff = {abs(origin.getX() - destination.getX()), abs(origin.getY() - destination.getY())};
+
+        if (diff[0] == 0 && diff[1] != 0 && v.getDirection() == Direction.VERTICAL) { // vertical
+            isok = true;
+        } else if (diff[0] != 0 && diff[1] == 0 && v.getDirection() == Direction.HORIZONTAL) { // horizontal
+            isok = true;
+        } /* I know this can be reducted, but I prefer to keep it like this for the readability */
+        return isok;
+    }
 }
 
 

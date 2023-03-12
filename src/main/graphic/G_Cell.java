@@ -41,6 +41,8 @@ public class G_Cell{
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                gBoard.sortingHat(getGCell());
+                /*
                 if(cell.isOccupied()&& !gBoard.isMovingState()){ // before everything
                     System.out.println("clicked on a vehicle");
                     gBoard.setMovingState(true);
@@ -79,6 +81,8 @@ public class G_Cell{
                     System.out.println("else");
                     gBoard.setMovingState(false);
                 }
+
+                 */
                 gBoard.redraw();
             }
         });
@@ -108,5 +112,9 @@ public class G_Cell{
         else{
             square.setBackground(new java.awt.Color(80, 80, 80));
         }
+    }
+
+    public G_Cell getGCell(){ //I know, but I Need it
+        return this;
     }
 }
